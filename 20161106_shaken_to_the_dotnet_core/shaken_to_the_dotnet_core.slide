@@ -1,0 +1,46 @@
+Shaken to the .Net Core
+
+
+Sotirios Mantziaris
+Refreshment Engineer (καφετζής)
+
+* Some Conventions
+
+
+* What is Go(lang)
+
+- Developed at Google in 2007 (public in 2009)
+- Statically-typed, syntax resembles C
+- Garbage collected
+
+* Advantages
+
+- [[http://www.techempower.com/benchmarks/#section=data-r11&hw=ec2&test=json][Fast]]
+- Compiles to static binary
+- Great standard library
+- Promise of backward compatibility (no Py2 -> Py3)
+- Concurrent in core (easy and safe)
+- Tooling
+- Meets nearly all of "Zen of Python" criteria. [[http://talks.golang.org/2012/zen.slide][awesome presentation]]
+- *Simple*
+- *Explicit*
+
+* Disadvantages
+
+- Young
+- Different
+- *Simple*
+- Requires bit more planning
+
+* Hello world
+
+.link http://localhost:7000 Hello!
+
+* To create smart tools/apps that make job done.
+
+* Why I'll continue to use Go
+
+- Gives perspective
+- Teaches how to create simpler and more maintainable solutions
+- Let me build cool tools. Soon native mobile apps too!
+- Bottom line: Go makes me a better Python developer, obviously
