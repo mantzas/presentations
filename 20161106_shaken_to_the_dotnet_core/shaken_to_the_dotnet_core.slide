@@ -1,46 +1,161 @@
 Shaken to the .Net Core
-
+drawn to the dark side
 
 Sotirios Mantziaris
 Refreshment Engineer (καφετζής)
 
 * Some Conventions
 
+Throughout the presentation we will be referring to Linux/MacOS as
 
-* What is Go(lang)
+- "The Other Side"
+- The dark side (i am joking of course)
 
-- Developed at Google in 2007 (public in 2009)
-- Statically-typed, syntax resembles C
-- Garbage collected
+* What is .Net Core
 
-* Advantages
+* .Net Core vs .Net
 
-- [[http://www.techempower.com/benchmarks/#section=data-r11&hw=ec2&test=json][Fast]]
-- Compiles to static binary
-- Great standard library
-- Promise of backward compatibility (no Py2 -> Py3)
-- Concurrent in core (easy and safe)
-- Tooling
-- Meets nearly all of "Zen of Python" criteria. [[http://talks.golang.org/2012/zen.slide][awesome presentation]]
-- *Simple*
-- *Explicit*
+* Profiles, netstandart
+* Versions Side By Side
+* ASP.NET Core
+- Kestrel (Web Server)
+- Not IIS, missing features like windows auth
 
-* Disadvantages
+* EF Core
+- Rewritten, not refactored
+- Improved
+- Lightweight
+- Missing : https://docs.efproject.net/en/latest/efcore-vs-ef6/features.html
 
-- Young
-- Different
-- *Simple*
-- Requires bit more planning
+* .Net Native???
 
-* Hello world
+* How to install it
 
-.link http://localhost:7000 Hello!
+* Windows
 
-* To create smart tools/apps that make job done.
+* The Other Side
+Show  actual installation on vm .net core
 
-* Why I'll continue to use Go
+* How to use it
 
-- Gives perspective
-- Teaches how to create simpler and more maintainable solutions
-- Let me build cool tools. Soon native mobile apps too!
-- Bottom line: Go makes me a better Python developer, obviously
+- dotnet (cmd)
+
+  new           Initialize a basic .NET project
+  restore       Restore dependencies specified in the .NET project
+  build         Builds a .NET project
+  publish       Publishes a .NET project for deployment (including the runtime)
+  run           Compiles and immediately executes a .NET project
+  test          Runs unit tests using the test runner specified in the project
+  pack          Creates a NuGet package
+
+-  [[https://docs.asp.net/en/latest/client-side/yeoman.html][yeoman]]
+- and off course Visual Studio
+
+* Which IDE exist
+- Windows
+- Visual Studio 2015 Update 3 with .NET Core 1.0.1 - VS 2015 Tooling Preview 2
+- Text Editors with C# extension (Omnisharp) like Visual Studio Code, Sublime, Atom, etc
+- Jetbrains Project Rider (Early Access Program)
+
+* The Other Side
+- No Visual Studio! :( (not yet)
+- Text Editors with C# extension (Omnisharp) like Visual Studio Code, Sublime, Atom, Vim, etc
+- Jetbrains Project Rider (Early Access Program)
+
+* Development Environment Thoughts
+- Development in an environment where it makes sense
+- If deploying only to Windows then a Windows Environment
+- When Deploying on “The Other Side” then a “The Other Side” Environment
+- Maybe only a Windows Environment
+- Maybe Both
+- When trying things that do not exist in Windows then a “The Other Side” Environment
+- Docker
+- Various storages (Redis, Cassandra)
+
+* Production Environment
+- Use of much cheaper infra (Dollars in Europe)
+- Examples of pricing for a VM with 4 cores and 8GB RAM
+
+AWS
+
+- c4.xlarge Linux 0.238/hr -> ~ 171,36/Month
+- c4.xlarge Windows 0.417/hr -> ~ 300,24/Month
+
+Azure
+
+- F4 Linux 0.238/hr -> ~171,36/Month
+- F4 Windows 0.408/hr -> ~ 293.76/Month
+
+Google Cloud
+
+- custom Linux 0.19484/hr -> ~ 113/Month
+- pricing for windows includes to the above the licensing cost
+
+* Production Environment (cont.)
+
+App can be containerized (Docker)
+
+- AWS Container Service
+- Azure Container Service
+- Google Cloud Container Engine
+
+* The Good
+
+- True Cross-Platform off course, no MONO stuff. First Class Citizen
+- Since everything is a Nuget we do not have to wait a new version of .Net. Just update the nuget
+- ASP.NET with Kestrel is blazing fast, ~1,2 Req/s and counting... (https://github.com/aspnet/benchmarks)
+- Usage of Docker and other stuff like Kubernetes
+- CLI which allows us to make nice automation scripts
+- The open source community and the contributions
+
+* The Good (cont.)
+
+- Much cheaper infra see Production Environment section
+
+- OS needs less resources on Linux
+- Linux Server ~145MB
+- Windows 2016 ~1GB
+- Which means you could scale down VM and save money!
+
+- .Net is not a windows thing anymore
+- The linux dev machine specs are lower or you get more machine out of the hardware
+- Windows 10 needs much more resources than a Linux distro (especially some distros with minimal UI like LXDE need only 10ths of MB Ram to run). Shame on Windows Memory Hog!!!
+
+* The Bad
+
+- NO Windows Components like
+
+ IIS (Windows Auth)
+ Performance Counters
+ Event Logs
+ ETW
+ MSDTC
+ ETC
+
+* The Bad (cont.)
+
+- NO or few APM solution out there
+- NO SQL Server Running for development in “The Other Side”… but it is coming.
+- NO MS IDE like Visual Studio which is a fantastic IDE
+- NO Tooling available or still in preview
+ Code Analysis
+ Unit Test Runners
+ etc
+
+- The project.json vs csproj fiasco
+
+* The Bad (cont.)
+
+- Some things are discontinued
+ App Domain, which maybe come again due to community uprise (open source)
+ Remoting
+ Binary Serialization
+ Sandboxing
+
+- Some things change, like project.json and csproj
+- F#, VB.Net is not First Class Citizen here.
+- Version, Profiles etc are still confusing
+- Time to get the community/companies to update their nuget libs. Major one have already started
+- Solid understanding of Linux is a must if you maintain your hardware
+
+* QnA

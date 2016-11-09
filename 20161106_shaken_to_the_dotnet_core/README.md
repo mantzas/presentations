@@ -10,6 +10,8 @@ present
 
 and [open the browser](http://localhost:3999)
 
+or use the [online presenter](http://go-talks.appspot.com/github.com/mantzas/presentations/20161106_shaken_to_the_dotnet_core/shaken_to_the_dotnet_core.slide#1)
+
 ## Dependency
 
 Presentation tool:
