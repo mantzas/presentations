@@ -9,19 +9,24 @@ Refreshment Engineer (καφετζής)
 Throughout the presentation we will be referring to Linux/MacOS as
 
 - "The Other Side"
-- The dark side (i am joking of course)
+- The dark side 
+
+No i am joking... as Linux
+What goes for Linux pretty much goes for MacOS
 
 * What is .Net Core
 
 * .Net Core vs .Net
 
 * Profiles, netstandart
+
 * Versions Side By Side
-* ASP.NET Core
+
+* What is ASP.NET Core
 - Kestrel (Web Server)
 - Not IIS, missing features like windows auth
 
-* EF Core
+* What is EF Core
 - Rewritten, not refactored
 - Improved
 - Lightweight
@@ -29,12 +34,12 @@ Throughout the presentation we will be referring to Linux/MacOS as
 
 * .Net Native???
 
-* How to install it
+* Installation
 
-* Windows
+- [[https://www.microsoft.com/net/core#windows][Windows]]
+- [[https://www.microsoft.com/net/core#ubuntu][Linux]]
 
-* The Other Side
-Show  actual installation on vm .net core
+: install on VM "dotnetcore"
 
 * How to use it
 
@@ -51,26 +56,32 @@ Show  actual installation on vm .net core
 -  [[https://docs.asp.net/en/latest/client-side/yeoman.html][yeoman]]
 - and off course Visual Studio
 
-* Which IDE exist
-- Windows
+: show off dotnet new, restore, build, publish
+: show off yeoman
+
+* Windows IDE
 - Visual Studio 2015 Update 3 with .NET Core 1.0.1 - VS 2015 Tooling Preview 2
 - Text Editors with C# extension (Omnisharp) like Visual Studio Code, Sublime, Atom, etc
 - Jetbrains Project Rider (Early Access Program)
 
-* The Other Side
+* IDE for Linux
 - No Visual Studio! :( (not yet)
 - Text Editors with C# extension (Omnisharp) like Visual Studio Code, Sublime, Atom, Vim, etc
 - Jetbrains Project Rider (Early Access Program)
 
-* Development Environment Thoughts
-- Development in an environment where it makes sense
-- If deploying only to Windows then a Windows Environment
-- When Deploying on “The Other Side” then a “The Other Side” Environment
-- Maybe only a Windows Environment
-- Maybe Both
-- When trying things that do not exist in Windows then a “The Other Side” Environment
-- Docker
-- Various storages (Redis, Cassandra)
+* Development Environment
+
+It depends. Choose Windows if
+
+- If you deploy to Windows
+- Make use of Windows Components
+
+Choose Linux if
+
+- you are deploying exclusively to Linux
+- you are using Docker, Redis, Cassandra, PostgreSQL which are native in Linux
+
+But you can mix and match having VM or containers with all the above
 
 * Production Environment
 - Use of much cheaper infra (Dollars in Europe)
@@ -112,14 +123,13 @@ App can be containerized (Docker)
 
 - Much cheaper infra see Production Environment section
 
-- OS needs less resources on Linux
-- Linux Server ~145MB
-- Windows 2016 ~1GB
-- Which means you could scale down VM and save money!
-
+- OS needs less resources on Linux and saves money
+ Linux Server ~145MB
+ Windows 2016 ~1GB
+ 
 - .Net is not a windows thing anymore
-- The linux dev machine specs are lower or you get more machine out of the hardware
-- Windows 10 needs much more resources than a Linux distro (especially some distros with minimal UI like LXDE need only 10ths of MB Ram to run). Shame on Windows Memory Hog!!!
+- The Linux dev machine specs are lower or you get more machine out of the hardware
+- Windows 10 needs much more resources than a Linux distro (especially some distro's with minimal UI like LXDE need only 10ths of MB Ram to run). Shame on Windows Memory Hog!!!
 
 * The Bad
 
@@ -135,7 +145,7 @@ App can be containerized (Docker)
 * The Bad (cont.)
 
 - NO or few APM solution out there
-- NO SQL Server Running for development in “The Other Side”… but it is coming.
+- NO SQL Server Running for development in Linux… but it is coming.
 - NO MS IDE like Visual Studio which is a fantastic IDE
 - NO Tooling available or still in preview
  Code Analysis
