@@ -16,11 +16,19 @@ What goes for Linux pretty much goes for MacOS
 
 * What is .Net Core
 
-* .Net Core vs .Net
+- Cross-Platform, runs on Windows, Linux and macOS. Can be ported to other OSes
+- Flexible deployment, can be included in your app or installed side-by-side on user- or machine-wide
+- Compatible with .NET Framework, Xamarin and Mono, via the .NET Standard Library.
+- Command-line tools
+- Open source
+- Supported by Microsoft
+- C# and F# (VB will come)
 
-* Profiles, netstandart
+* .NET Platforms Support
 
-* Versions Side By Side
+- netstandard 1.6 supports .Net Core 1.0, .Net Framework vNext, Mono/Xamarin vNext, UWP vNext
+- netstandard 1.5 supports .Net Core 1.0, .Net Framework 4.6.2, Mono/Xamarin vNext, UWP vNext
+- the rest is [[https://docs.microsoft.com/en-us/dotnet/articles/standard/library][here]]
 
 * What is ASP.NET Core
 - Kestrel (Web Server)
@@ -32,14 +40,21 @@ What goes for Linux pretty much goes for MacOS
 - Lightweight
 - Missing : https://docs.efproject.net/en/latest/efcore-vs-ef6/features.html
 
-* .Net Native???
+* Who is using it
+
+- Illyriad Games
+Age Of Ascent
+http://web.ageofascent.com/category/development/aspnet-5/
+using Nano Server
+
+//TODO
 
 * Installation
 
 - [[https://www.microsoft.com/net/core#windows][Windows]]
 - [[https://www.microsoft.com/net/core#ubuntu][Linux]]
 
-: install on VM "dotnetcore"
+: do the installation live on VM
 
 * How to use it
 
@@ -110,6 +125,8 @@ App can be containerized (Docker)
 - Azure Container Service
 - Google Cloud Container Engine
 
+: show a application how to dockerize it and run
+
 * The Good
 
 - True Cross-Platform off course, no MONO stuff. First Class Citizen
@@ -129,7 +146,7 @@ App can be containerized (Docker)
  
 - .Net is not a windows thing anymore
 - The Linux dev machine specs are lower or you get more machine out of the hardware
-- Windows 10 needs much more resources than a Linux distro (especially some distro's with minimal UI like LXDE need only 10ths of MB Ram to run). Shame on Windows Memory Hog!!!
+- Windows 10 needs much more resources than a Linux distro (especially some distro with minimal UI like LXDE need only 10ths of MB Ram to run). Shame on Windows Memory Hog!!!
 
 * The Bad
 
