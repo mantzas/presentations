@@ -1,8 +1,14 @@
 Shaken to the .Net Core
 drawn to the dark side
 
+21:00 9/11/2016
+Tags: .net core, asp.net core, linux, macOS
+
 Sotirios Mantziaris
 Refreshment Engineer (καφετζής)
+
+@smantziaris
+http://blog.mantziaris.eu/
 
 * Some Conventions
 
@@ -186,3 +192,7 @@ App can be containerized (Docker)
 - Solid understanding of Linux is a must if you maintain your hardware
 
 * QnA
+
+* References
+
+//TODO
