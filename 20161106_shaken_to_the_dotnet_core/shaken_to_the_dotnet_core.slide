@@ -36,6 +36,8 @@ What goes for Linux pretty much goes for MacOS
 - netstandard 1.5 supports .Net Core 1.0, .Net Framework 4.6.2, Mono/Xamarin vNext, UWP vNext
 - the rest is [[https://docs.microsoft.com/en-us/dotnet/articles/standard/library][here]]
 
+: show the site to get the compatibility matrix
+
 * What is ASP.NET Core
 - Kestrel (Web Server)
 - Not IIS, missing features like windows auth
@@ -45,6 +47,15 @@ What goes for Linux pretty much goes for MacOS
 - Improved
 - Lightweight
 - Missing : https://docs.efproject.net/en/latest/efcore-vs-ef6/features.html
+
+* Other data access options
+
+- According to this [[https://blogs.msdn.microsoft.com/dotnet/2016/11/09/net-core-data-access/][blog]] we have
+
+ ORM like EF Core, Dapper
+ Relational like Sql Server, PostgreSQL, MySQL, SQLite
+ NoSQL like Azure DocumentDB, MongoDB, RavenDB, Redis, Cassandra, CouchBase, 
+ CouchDB, Neo4j, RethinkDB, YesSql, Lucene.NET
 
 * Who is using it
 
@@ -74,10 +85,12 @@ using Nano Server
   test          Runs unit tests using the test runner specified in the project
   pack          Creates a NuGet package
 
--  [[https://docs.asp.net/en/latest/client-side/yeoman.html][yeoman]]
+- custom dotnet command can be build like these [[https://github.com/aspnet/DotNetTools][tools]] 
+- [[https://docs.asp.net/en/latest/client-side/yeoman.html][yeoman]]
 - and off course Visual Studio
 
 : show off dotnet new, restore, build, publish
+: show off dotnet watch
 : show off yeoman
 
 * Windows IDE
@@ -188,8 +201,10 @@ App can be containerized (Docker)
 - Some things change, like project.json and csproj
 - F#, VB.Net is not First Class Citizen here.
 - Version, Profiles etc are still confusing
-- Time to get the community/companies to update their nuget libs. Major one have already started
+- Time to get the community/companies to update their nuget libs. Major one have already started. Beware tha some libs
 - Solid understanding of Linux is a must if you maintain your hardware
+
+: some libs like log4net, nhibernate probably won't make it. They did not even get on the .net 4.5+ train so good they are gone 
 
 * QnA
 
