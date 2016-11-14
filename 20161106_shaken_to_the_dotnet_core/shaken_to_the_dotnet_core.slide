@@ -34,6 +34,8 @@ What goes for Linux pretty much goes for MacOS
 
 - netstandard 1.6 supports .Net Core 1.0, .Net Framework vNext, Mono/Xamarin vNext, UWP vNext
 - netstandard 1.5 supports .Net Core 1.0, .Net Framework 4.6.2, Mono/Xamarin vNext, UWP vNext
+- netstandard 1.5 supports .Net Core 1.0, .Net Framework 4.6.1, Mono/Xamarin vNext, UWP 10.0
+- etc
 - the rest is [[https://docs.microsoft.com/en-us/dotnet/articles/standard/library][here]]
 
 : show the site to get the compatibility matrix
@@ -204,7 +206,7 @@ App can be containerized (Docker)
 - Time to get the community/companies to update their nuget libs. Major one have already started. Beware tha some libs
 - Solid understanding of Linux is a must if you maintain your hardware
 
-: some libs like log4net, nhibernate probably won't make it. They did not even get on the .net 4.5+ train so good they are gone 
+: some libs like log4net, NHibernate probably won't make it. They did not even get on the .net 4.5+ train so good they are gone 
 
 * QnA
 
