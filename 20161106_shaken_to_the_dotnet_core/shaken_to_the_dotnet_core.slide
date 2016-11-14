@@ -59,6 +59,7 @@ What goes for Linux pretty much goes for MacOS
 - Improved
 - Lightweight
 - Extensible
+- Supports Microsoft SQL Server, SQLite, Postgres (Npgsql), SQL Server Compact Edition, InMemory (for testing purposes)
 - Missing : https://docs.efproject.net/en/latest/efcore-vs-ef6/features.html
 
 * Other data access options
