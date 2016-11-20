@@ -124,8 +124,9 @@ using Nano Server
 - [[https://docs.asp.net/en/latest/client-side/yeoman.html][yeoman]]
 - and off course Visual Studio
 
-: show off dotnet new, restore, build, run, publish, pack, test
-: show off dotnet watch
+: show off dotnet new, restore, build, run, publish, dotnet *.dll to run 
+: show off library(dotnet new -t lib), pack
+: show off test (dotnet new -t xunittest), https://github.com/aspnet/DotNetTools/tree/dev/src/Microsoft.DotNet.Watcher.Tools 
 : show off yeoman
 
 * Windows IDE
@@ -138,7 +139,7 @@ using Nano Server
 - No Visual Studio! :( (not yet)
 - Text Editors with C# extension (Omnisharp) like Visual Studio Code, Sublime, Atom, Vim, etc
 - Jetbrains Project Rider (Early Access Program)
-- Visual Studio for macOS based on Xamarin's IDE
+- [[https://www.visualstudio.com/vs/visual-studio-mac/][Visual Studio for macOS]] based on Xamarin's IDE
 
 * Development Environment
 
