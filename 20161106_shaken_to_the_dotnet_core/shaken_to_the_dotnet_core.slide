@@ -181,11 +181,12 @@ App can be containerized (Docker)
 - [[https://aws.amazon.com/ecs/][AWS Container Service]]
 - [[https://azure.microsoft.com/en-us/services/container-service/][Azure Container Service]]
 - [[https://cloud.google.com/container-engine/][Google Cloud Container Engine]]
+- Check out [[http://www.hanselman.com/blog/ExploringASPNETCoreWithDockerInBothLinuxAndWindowsContainers.aspx][Hanselman blog]]
 
-: show a application how to dockerize it and run
+: show a application how to dockerize it and run. App is on D:
+: dockerization with nano did not work...
 
 * The Good
-
 
 - True Cross-Platform, no MONO stuff. First Class Citizen
 - Since everything is a Nuget we do not have to wait a new version of .Net. Just update the nuget
