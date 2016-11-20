@@ -1,14 +1,16 @@
 Shaken to the .Net Core
 drawn to the dark side
 
-21:00 9/11/2016
-Tags: .net core, asp.net core, linux, macOS
+19:00 23 Nov 2016
+Tags: .net core, asp.net core, ef core, linux, macOS
 
 Sotirios Mantziaris
 Refreshment Engineer (καφετζής)
 
+smantziaris@gmail.com
+http://blog.mantziaris.eu
+https://gr.linkedin.com/in/mantzas
 @smantziaris
-http://blog.mantziaris.eu/
 
 * Some Conventions
 
@@ -54,6 +56,13 @@ What goes for Linux pretty much goes for MacOS
 - Build and run cross-platform ASP.NET apps on Windows, Mac and Linux
 - Open source and community focused
 
+* ASP.NET Core Performance
+
+- Check out [[https://www.techempower.com/benchmarks/][techempower benchmarks]]
+- 10th in the "plaintext" category
+
+: show the site benchmarks
+
 * What is EF Core
 - Rewritten, not refactored
 - Improved
@@ -62,14 +71,28 @@ What goes for Linux pretty much goes for MacOS
 - Supports Microsoft SQL Server, SQLite, Postgres (Npgsql), SQL Server Compact Edition, InMemory (for testing purposes)
 - Missing : https://docs.efproject.net/en/latest/efcore-vs-ef6/features.html
 
+: show the missing features site
+
 * Other data access options
 
 - According to this [[https://blogs.msdn.microsoft.com/dotnet/2016/11/09/net-core-data-access/][blog]] we have
-
- ORM like EF Core, Dapper
- Relational like Sql Server, PostgreSQL, MySQL, SQLite
- NoSQL like Azure DocumentDB, MongoDB, RavenDB, Redis, Cassandra, CouchBase, 
+- ORM
+ EF Core, Dapper
+- Relational 
+ Sql Server, PostgreSQL, MySQL, SQLite
+- NoSQL 
+ Azure DocumentDB, MongoDB, RavenDB, Redis, Cassandra, CouchBase, 
  CouchDB, Neo4j, RethinkDB, YesSql, Lucene.NET
+
+ 
+* Sql Server on Linux
+
+- [[https://www.microsoft.com/en-us/sql-server/sql-server-vnext-including-Linux][Sql Server Linux]]
+- Installation on major distro (RedHat, Ubuntu, SUSE)
+- Use docker for dev
+- Will be RTM probably on Mid/2017
+
+: show the web site
 
 * Who is using it
 
@@ -77,8 +100,6 @@ What goes for Linux pretty much goes for MacOS
 Age Of Ascent
 http://web.ageofascent.com/category/development/aspnet-5/
 using Nano Server
-
-//TODO
 
 * Installation
 
@@ -103,12 +124,13 @@ using Nano Server
 - [[https://docs.asp.net/en/latest/client-side/yeoman.html][yeoman]]
 - and off course Visual Studio
 
-: show off dotnet new, restore, build, publish
+: show off dotnet new, restore, build, run, publish, pack, test
 : show off dotnet watch
 : show off yeoman
 
 * Windows IDE
 - Visual Studio 2015 Update 3 with .NET Core 1.0.1 - VS 2015 Tooling Preview 2
+- Visual Studio 2017 RC
 - Text Editors with C# extension (Omnisharp) like Visual Studio Code, Sublime, Atom, etc
 - Jetbrains Project Rider (Early Access Program)
 
@@ -116,6 +138,7 @@ using Nano Server
 - No Visual Studio! :( (not yet)
 - Text Editors with C# extension (Omnisharp) like Visual Studio Code, Sublime, Atom, Vim, etc
 - Jetbrains Project Rider (Early Access Program)
+- Visual Studio for macOS based on Xamarin's IDE
 
 * Development Environment
 
@@ -135,17 +158,17 @@ But you can mix and match having VM or containers with all the above
 - Use of much cheaper infra (Dollars in Europe)
 - Examples of pricing for a VM with 4 cores and 8GB RAM
 
-AWS
+[[https://aws.amazon.com/ec2/pricing/on-demand/][AWS]]
 
 - c4.xlarge Linux 0.238/hr -> ~ 171,36/Month
 - c4.xlarge Windows 0.417/hr -> ~ 300,24/Month
 
-Azure
+[[https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/][Azure]]
 
 - F4 Linux 0.238/hr -> ~171,36/Month
 - F4 Windows 0.408/hr -> ~ 293.76/Month
 
-Google Cloud
+[[https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type][Google Cloud]]
 
 - custom Linux 0.19484/hr -> ~ 113/Month
 - pricing for windows includes to the above the licensing cost
@@ -154,17 +177,18 @@ Google Cloud
 
 App can be containerized (Docker)
 
-- AWS Container Service
-- Azure Container Service
-- Google Cloud Container Engine
+- [[https://aws.amazon.com/ecs/][AWS Container Service]]
+- [[https://azure.microsoft.com/en-us/services/container-service/][Azure Container Service]]
+- [[https://cloud.google.com/container-engine/][Google Cloud Container Engine]]
 
 : show a application how to dockerize it and run
 
 * The Good
 
-- True Cross-Platform off course, no MONO stuff. First Class Citizen
+
+- True Cross-Platform, no MONO stuff. First Class Citizen
 - Since everything is a Nuget we do not have to wait a new version of .Net. Just update the nuget
-- ASP.NET with Kestrel is blazing fast, ~1,2 Req/s and counting... (https://github.com/aspnet/benchmarks)
+- ASP.NET with Kestrel is blazing fast, ~1,8M Req/s and rising...
 - Usage of Docker and other stuff like Kubernetes
 - CLI which allows us to make nice automation scripts
 - The open source community and the contributions
@@ -172,14 +196,12 @@ App can be containerized (Docker)
 * The Good (cont.)
 
 - Much cheaper infra see Production Environment section
-
 - OS needs less resources on Linux and saves money
  Linux Server ~145MB
- Windows 2016 ~1GB
- 
+ Windows 2016 ~1GB 
 - .Net is not a windows thing anymore
 - The Linux dev machine specs are lower or you get more machine out of the hardware
-- Windows 10 needs much more resources than a Linux distro (especially some distro with minimal UI like LXDE need only 10ths of MB Ram to run). Shame on Windows Memory Hog!!!
+- Windows 10 needs much more resources than a Linux distro (especially some distro with minimal UI like Lubuntu starts with only 300 of MB Ram). Shame on Windows Memory Hog!!!
 
 * The Bad
 
@@ -190,38 +212,27 @@ App can be containerized (Docker)
  Event Logs
  ETW
  MSDTC
- ETC
-
-* The Bad (cont.)
-
+ etc...
 - NO or few APM solution out there
-- NO SQL Server Running for development in Linux… but it is coming.
 - NO MS IDE like Visual Studio which is a fantastic IDE
 - NO Tooling available or still in preview
  Code Analysis
  Unit Test Runners
  etc
 
-- The project.json vs csproj fiasco
-
 * The Bad (cont.)
 
+- The project.json vs csproj fiasco. Still changing
 - Some things are discontinued
  App Domain, which maybe come again due to community uprise (open source)
  Remoting
  Binary Serialization
  Sandboxing
-
-- Some things change, like project.json and csproj
 - F#, VB.Net is not First Class Citizen here.
 - Version, Profiles etc are still confusing
-- Time to get the community/companies to update their nuget libs. Major one have already started. Beware tha some libs
+- Time to get the community/companies to update their nuget libs. Major one have already started. Beware tha some libs will take a lot of time to port.
 - Solid understanding of Linux is a must if you maintain your hardware
 
-: some libs like log4net, NHibernate probably won't make it. They did not even get on the .net 4.5+ train so good they are gone 
+: some libs like log4net, NHibernate probably won't make it. They did not even get on the .net 4.5+ train so good they are gone
 
 * QnA
-
-* References
-
-//TODO
