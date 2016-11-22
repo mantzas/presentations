@@ -22,6 +22,11 @@ Throughout the presentation we will be referring to Linux/MacOS as
 No i am joking... as Linux
 What goes for Linux pretty much goes for MacOS
 
+* Startup Questions
+
+- How many use Linux in Production?
+- How many use Linux in Development?
+
 * What is .Net Core
 
 - Cross-Platform, runs on Windows, Linux and macOS. Can be ported to other OSes
@@ -56,8 +61,9 @@ What goes for Linux pretty much goes for MacOS
 - Build and run cross-platform ASP.NET apps on Windows, Mac and Linux
 - Open source and community focused
 
-* ASP.NET Core Performance
+* .Net Core and ASP.NET Core Performance
 
+- [[http://benchmarksgame.alioth.debian.org/u64q/csharp.html][The Computer Language Benchmarks Game]]
 - Check out [[https://www.techempower.com/benchmarks/][techempower benchmarks]]
 - 10th in the "plaintext" category
 
@@ -69,7 +75,7 @@ What goes for Linux pretty much goes for MacOS
 - Lightweight
 - Extensible
 - Supports Microsoft SQL Server, SQLite, Postgres (Npgsql), SQL Server Compact Edition, InMemory (for testing purposes)
-- Missing : https://docs.efproject.net/en/latest/efcore-vs-ef6/features.html
+- [[https://docs.microsoft.com/en-us/ef/efcore-and-ef6/features][Missing]]
 
 : show the missing features site
 
@@ -77,7 +83,7 @@ What goes for Linux pretty much goes for MacOS
 
 - According to this [[https://blogs.msdn.microsoft.com/dotnet/2016/11/09/net-core-data-access/][blog]] we have
 - ORM
- EF Core, Dapper
+ EF Core, Dapper, NPoco
 - Relational 
  Sql Server, PostgreSQL, MySQL, SQLite
 - NoSQL 
@@ -96,10 +102,10 @@ What goes for Linux pretty much goes for MacOS
 
 * Who is using it
 
-- Illyriad Games
-Age Of Ascent
-http://web.ageofascent.com/category/development/aspnet-5/
-using Nano Server
+- Illyriad Games - [[http://web.ageofascent.com/category/development/aspnet-5/][Age Of Ascent using Nano Server]]
+- [[http://codevoyagers.com/2016/05/18/net-core-migration-its-all-about-the-dependencies/][Skyscanner]]
+- others?  
+- you?
 
 * Installation
 
@@ -171,7 +177,7 @@ But you can mix and match having VM or containers with all the above
 
 [[https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type][Google Cloud]]
 
-- custom Linux 0.19484/hr -> ~ 113/Month
+- custom Linux 0.19484/hr -> ~ 113/Month !!!???!!!
 - pricing for windows includes to the above the licensing cost
 
 * Production Environment (cont.)
@@ -215,7 +221,7 @@ App can be containerized (Docker)
  ETW
  MSDTC
  etc...
-- NO or few APM solution out there
+- NO or few Profiler/APM solution out there
 - NO MS IDE like Visual Studio which is a fantastic IDE
 - NO Tooling available or still in preview
  Code Analysis
@@ -230,11 +236,15 @@ App can be containerized (Docker)
  Remoting
  Binary Serialization
  Sandboxing
-- F#, VB.Net is not First Class Citizen here.
+- F# should be but is not so much, VB.Net is not First Class Citizen here.
 - Version, Profiles etc are still confusing
 - Time to get the community/companies to update their nuget libs. Major one have already started. Beware tha some libs will take a lot of time to port.
 - Solid understanding of Linux is a must if you maintain your hardware
 
 : some libs like log4net, NHibernate probably won't make it. They did not even get on the .net 4.5+ train so good they are gone
+
+* How many would consider moving to Linux
+- For development?
+- For Production?
 
 * QnA
