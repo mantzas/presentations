@@ -1,4 +1,4 @@
-Shaken to the .Net Core
+Shaken to the .NET Core
 drawn to the dark side
 
 19:00 23 Nov 2016
@@ -9,6 +9,7 @@ Refreshment Engineer (καφετζής)
 
 smantziaris@gmail.com
 http://blog.mantziaris.eu
+https://github.com/mantzas
 https://gr.linkedin.com/in/mantzas
 @smantziaris
 
@@ -29,7 +30,7 @@ https://gr.linkedin.com/in/mantzas
 - How many host their production apps in Linux?
 - How many use Linux in development?
 
-* What is .Net Core
+* What is .NET Core
 
 - Cross-Platform, runs on Windows, Linux and macOS. Can be ported to other OSes
 - Flexible deployment, can be included in your app or installed side-by-side on user- or machine-wide
@@ -39,11 +40,11 @@ https://gr.linkedin.com/in/mantzas
 - Supported by Microsoft
 - C# and F# (VB will come)
 
-* .NET Platforms Support
+* .NET Standard Library
 
-- netstandard 1.6 supports .Net Core 1.0, .Net Framework vNext, Mono/Xamarin vNext, UWP vNext
-- netstandard 1.5 supports .Net Core 1.0, .Net Framework 4.6.2, Mono/Xamarin vNext, UWP vNext
-- netstandard 1.5 supports .Net Core 1.0, .Net Framework 4.6.1, Mono/Xamarin vNext, UWP 10.0
+- netstandard 1.6 supports .NET Core 1.0, .NET Framework vNext, Mono/Xamarin vNext, UWP vNext
+- netstandard 1.5 supports .NET Core 1.0, .NET Framework 4.6.2, Mono/Xamarin vNext, UWP vNext
+- netstandard 1.5 supports .NET Core 1.0, .NET Framework 4.6.1, Mono/Xamarin vNext, UWP 10.0
 - etc
 - the rest is [[https://docs.microsoft.com/en-us/dotnet/articles/standard/library][here]]
 
@@ -63,7 +64,7 @@ https://gr.linkedin.com/in/mantzas
 - Build and run cross-platform ASP.NET apps on Windows, Mac and Linux
 - Open source and community focused
 
-* .Net Core and ASP.NET Core Performance
+* .NET Core and ASP.NET Core Performance
 
 - [[http://benchmarksgame.alioth.debian.org/u64q/csharp.html][The Computer Language Benchmarks Game]]
 - Check out [[https://www.techempower.com/benchmarks/][techempower benchmarks]]
@@ -111,8 +112,8 @@ https://gr.linkedin.com/in/mantzas
 
 * Installation
 
-- [[https://www.microsoft.com/net/core#windows][Windows]]
-- [[https://www.microsoft.com/net/core#ubuntu][Linux]]
+- [[https://www.microsoft.com/net/core#windowsvs2015][Windows]]
+- [[https://www.microsoft.com/net/core#linuxubuntu][Linux]]
 
 : do the installation live on VM
 
@@ -164,8 +165,8 @@ Choose Linux if
 But you can mix and match having VM or containers with all the above
 
 * Production Environment
-- Use of much cheaper infra (Dollars in Europe)
-- Examples of pricing for a VM with 4 cores and 8GB RAM
+- Use of much cheaper infra 
+- Examples of pricing for a VM with 4 cores and 8GB RAM ($ in Europe)
 
 [[https://aws.amazon.com/ec2/pricing/on-demand/][AWS]]
 
@@ -197,7 +198,7 @@ App can be containerized (Docker)
 * The Good
 
 - True Cross-Platform, no MONO stuff. First Class Citizen
-- Since everything is a Nuget we do not have to wait a new version of .Net. Just update the nuget
+- Since everything is a Nuget we do not have to wait a new version of .NET. Just update the nuget
 - ASP.NET with Kestrel is blazing fast, ~1,8M Req/s and rising...
 - Usage of Docker and other stuff like Kubernetes
 - CLI which allows us to make nice automation scripts
@@ -209,7 +210,7 @@ App can be containerized (Docker)
 - OS needs less resources on Linux and saves money
  Linux Server ~145MB
  Windows 2016 ~1GB 
-- .Net is not a windows thing anymore
+- .NET is not a windows thing anymore
 - The Linux dev machine specs are lower or you get more machine out of the hardware
 - Windows 10 needs much more resources than a Linux distro (especially some distro with minimal UI like Lubuntu starts with only 300 of MB Ram). Shame on Windows Memory Hog!!!
 
@@ -238,12 +239,12 @@ App can be containerized (Docker)
  Remoting
  Binary Serialization
  Sandboxing
-- F# should be but is not so much, VB.Net is not First Class Citizen here.
-- Version, Profiles etc are still confusing
+- F# is not so much a First Class Citizen, VB.NET is not at all
+- Version, Profiles, .NEt Standard Library etc are still confusing
 - Time to get the community/companies to update their nuget libs. Major one have already started. Beware tha some libs will take a lot of time to port.
-- Solid understanding of Linux is a must if you maintain your hardware
+- A good understanding of Linux is needed (which is a good thing too!)
 
-: some libs like log4net, NHibernate probably won't make it. They did not even get on the .net 4.5+ train so good they are gone
+: some libs like log4net, NHibernate probably won't make it. They did not even get on the .NET 4.5+ train so good they are gone
 
 * How many would consider moving to Linux
 - For development?
