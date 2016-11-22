@@ -26,8 +26,8 @@ https://gr.linkedin.com/in/mantzas
 
 * Startup Questions
 
-- How many use Linux in Production?
-- How many use Linux in Development?
+- How many host their production apps in Linux?
+- How many use Linux in development?
 
 * What is .Net Core
 
@@ -247,6 +247,6 @@ App can be containerized (Docker)
 
 * How many would consider moving to Linux
 - For development?
-- For Production?
+- For production?
 
 * QnA
