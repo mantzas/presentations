@@ -47,6 +47,7 @@ https://gr.linkedin.com/in/mantzas
 - netstandard 1.5 supports .NET Core 1.0, .NET Framework 4.6.1, Mono/Xamarin vNext, UWP 10.0
 - etc
 - the rest is [[https://docs.microsoft.com/en-us/dotnet/articles/standard/library][here]]
+- browse api [[https://apisof.net][apisof.net]]
 
 : show the site to get the compatibility matrix
 
