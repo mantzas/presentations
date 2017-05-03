@@ -67,7 +67,8 @@ https://gr.linkedin.com/in/mantzas
 
 * .NET Core and ASP.NET Core Performance
 
-- [[http://benchmarksgame.alioth.debian.org/u64q/csharp.html][The Computer Language Benchmarks Game]]
+- [[https://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=csharpcore&lang2=java][C# vs Java]]
+- [[https://benchmarksgame.alioth.debian.org/u64q/compare.php?lang=csharpcore&lang2=yarv][C# vs Ruby]]
 - Check out [[https://www.techempower.com/benchmarks/][techempower benchmarks]]
 - 10th in the "plaintext" category
 
