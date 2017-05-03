@@ -35,6 +35,14 @@ smantziaris@gmail.com
 
 ***
 
+### Who offers serverless
+
+- [AWS Lambda](https://aws.amazon.com/lambda/)
+- [Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview)
+- [GCP Functions](https://cloud.google.com/functions/)
+
+### Why?
+
 ### Thank you!
 
 * [presentations](https://github.com/mantzas/presentations)
