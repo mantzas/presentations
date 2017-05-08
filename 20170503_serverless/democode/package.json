@@ -1,0 +1,27 @@
+{
+  "name": "ApmEventJournal",
+  "version": "1.0.0",
+  "description": "APM event journal service",
+  "main": "src/Handler.js",
+  "scripts": {
+    "test": "nyc mocha",
+    "test-cover-html": "nyc --reporter=html mocha",
+    "test-teamcity": "mocha --reporter mocha-teamcity-reporter"
+  },
+  "author": "s.mantziaris@pamediakopes.gr",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "0.0.10",
+    "@types/chai": "^3.5.1",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.13",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "nyc": "^10.2.0",
+    "typescript": "^2.2.2",
+    "mocha-teamcity-reporter": ">=0.0.1"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.48.0"
+  }
+}

@@ -73,7 +73,17 @@ smantziaris@gmail.com
 
 ### What is serverless?
 
-***
+> Serverless computing, also known as function as a service (FaaS), is a cloud computing code execution model in which the cloud provider fully manages starting and stopping of  a function's container platform as a service (PaaS) as necessary to serve requests, and requests are billed by an abstract measure of the resources required to satisfy the      request, rather than per virtual machine, per hour.
+ [Wikipedia](https://en.wikipedia.org/wiki/Serverless_computing)
+
+---
+
+### What does that actually mean?
+
+- No provisioning of Infrastructure
+- Pay be usage not by hour (used or not)
+
+---
 
 ### Who offers serverless
 
@@ -81,6 +91,9 @@ smantziaris@gmail.com
 - [Azure Functions](https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview)
 - [GCP Functions](https://cloud.google.com/functions/)
 - etc
+<br />
+<br />
+***I will concentrate on AWS for the rest of the presentation***
 
 ---
 
@@ -90,7 +103,7 @@ smantziaris@gmail.com
 * Low cost
 * Easy integration (API Gateway, Kinesis, SNS, S3)
 * NoOPS (almost!!!)
-* Deployment (cli)
+* Easy deployment (cli)
 * Stages (Dev, Staging, Prod)
 * Versioning/Rollback
 * Automatic Scaling
@@ -99,23 +112,11 @@ smantziaris@gmail.com
 
 ---
 
-### [serverless.com framework](https://serverless.com/)
-
-* all in one solution
-* powered by CloudFormation but abstracted away complexity
-* powerful and easy cli
-* multi language support (js, C#, Java, Python)
-* multi cloud provider support (AWS, Azure etc)
-* easy integration with cloud services (SNS, Kinesis, Api Gateway)
-* good documentation
-
-***
-
 ### CONS
 
 * High cost if slow process time with large memory need and al ot of requests
-* Startup cost is high
-* Not everything is suited for this like
+* Function startup cost is high
+* Not everything is suited for this
     * high performance service
     * process that spans over several minutes
     * ultra-low latency requirements    
@@ -123,18 +124,51 @@ smantziaris@gmail.com
 
 ***
 
-### Why NodeJS? 
+### I like it, how do i start?
 
-* Fast Lambda start up times compared to C#, Java
-* Less Resources used compared to C#, Java
-* Typescript (thank god)
-* npm (package manager like nuget)
-* huge package repository
-* Small deployment size compared to C#, Java
-* Speed
-* Easy testing (mocha, chai)
+* Via the provider website (upload code etc)
+* Via [Visual Studio Extensions](https://aws.amazon.com/blogs/developer/preview-of-the-aws-toolkit-for-visual-studio-2017/) for C#
+* Via [dotnet cli](http://docs.aws.amazon.com/toolkit-for-visual-studio/latest/user-guide/lambda-cli-publish.html) for C#
+* Via [serverless framework](https://serverless.com/)
+<br />
+<br />
+***For the rest of the presentation i will use the serverless framework which makes the process very easy***
+
+---
+
+### [serverless.com framework](https://serverless.com/)
+
+* all in one solution
+* powered by CloudFormation, but abstracted away complexity
+* powerful and easy cli
+* multi language support (js, C#, Java, Python)
+* multi cloud provider support (AWS, Azure etc)
+* easy integration with cloud services (SNS, Kinesis, Api Gateway)
+* good documentation
+* **you may have to dig deeper for highly advanced stuff**
 
 ***
+
+### What's the stack?
+
+* [serverless framework](https://serverless.com/)
+* [Node.js](https://nodejs.org/en/)
+* [Typescript](https://www.typescriptlang.org/)
+
+---
+
+### Why NodeJS? 
+
+* Faster Lambda start up times compared to C#, Java
+* Less Resources used compared to C#, Java
+* [Typescript](https://www.typescriptlang.org/) (thank god)
+* [npm](https://www.npmjs.com/) (package manager like nuget)
+* huge package repository
+* Smaller deployment size compared to C#, Java
+* Speed
+* Easy testing ([mocha](https://mochajs.org/), [chai](http://chaijs.com/))
+
+---
 
 ### Typescript?
 ### Is Javascript not bad enough?
@@ -142,7 +176,7 @@ smantziaris@gmail.com
 * Based on future ECMAScript Specs
 * Types and checks at build time (a clear winner)
 * transpile future ES6 to ES5
-* class, promises, async-await, generics, discriminated unions
+* classes, promises (like Task<T>), async-await, generics, discriminated unions
 * Very familiar to C# (Java, C++) Developers
 * [Visual Studio Code](https://code.visualstudio.com/) with autocomplete and debugging support
 * Easy to learn
@@ -150,17 +184,25 @@ smantziaris@gmail.com
 
 ***
 
+### Enough with the theory
+# ***Show me the code***
+
+---
+
+### First we pray to the demo gods
+
+---
+
 ### Hands On Goals
 
 * Use `sls` cli to create a service in NodeJS
-* Create two functions in the handler
+* Create a function in the handler
     * retrieve, which returns a list of orders
-    * create, which creates a new order
     * test locally with `sls` cli
 * Use Api Gateway to create a GET /Orders endpoint
 * Deploy using `sls`
 * Test in AWS
-    * use Postman to send GET/POST
+    * use Chrome to send GET
     * monitor logs using `sls`
 * Make a change,deploy and test
 * Rollback due to a ***bug***

@@ -1,0 +1,18 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# vs
+.vs
+
+# idea
+*.iml
+
+# nyc code coverage
+.nyc_output
+
+# coverage
+coverage
