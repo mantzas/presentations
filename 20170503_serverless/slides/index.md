@@ -11,7 +11,7 @@
 <br />
 <br />
 
-### Introduction into serverless with Typescript mainly on AWS
+### serverless intro with Node.js and Typescript on AWS Lambda
 
 <br />
 <br />
@@ -81,7 +81,7 @@ smantziaris@gmail.com
 ### What does that actually mean?
 
 - No provisioning of Infrastructure
-- Pay be usage not by hour (used or not)
+- Pay by usage not by hour (used or not)
 
 ---
 
@@ -116,6 +116,7 @@ smantziaris@gmail.com
 
 * High cost if slow process time with large memory need and al ot of requests
 * Function startup cost is high
+* Function lives only for 300 sec (AWS)
 * Not everything is suited for this
     * high performance service
     * process that spans over several minutes
@@ -176,7 +177,7 @@ smantziaris@gmail.com
 * Based on future ECMAScript Specs
 * Types and checks at build time (a clear winner)
 * transpile future ES6 to ES5
-* classes, promises (like Task<T>), async-await, generics, discriminated unions
+* classes, promises (like Task), async-await, generics, discriminated unions
 * Very familiar to C# (Java, C++) Developers
 * [Visual Studio Code](https://code.visualstudio.com/) with autocomplete and debugging support
 * Easy to learn
@@ -189,7 +190,9 @@ smantziaris@gmail.com
 
 ---
 
-### First we pray to the demo gods
+### First we pray to the demo gods!!!
+
+![Image of Yaktocat](./images/Demo.jpeg)
 
 ---
 
