@@ -35,3 +35,4 @@ package:
     - node_modules/mocha-teamcity-reporter/**
     - node_modules/chai/**
     - node_modules/chai-string/**
+    - node_modules/aws-sdk/**
