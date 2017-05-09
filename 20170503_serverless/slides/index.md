@@ -51,21 +51,21 @@ smantziaris@gmail.com
 
 ---
 
-### What about speed of delivery (with provisioning)?
+### What about speed of provisioning?
 
 #### On Premises
 
 > Bare Metal ~ ***weeks?***
 <br />
-> VM ~ ***hours-days?***
+> VM ~ ***hours? days? weeks?***
 <br />
-> Docker ~ ***minutes-days?***
+> Docker ~ ***minutes? days? weeks?***
 
 #### Cloud 
 
-> VM ~ ***hours-days?***
+> VM ~ ***hours? days?***
 <br />
-> Docker ~ ***minutes-days?***
+> Docker ~ ***minutes? days?***
 <br />
 > serverless ~ ***seconds?***
 
@@ -114,9 +114,9 @@ smantziaris@gmail.com
 
 ### CONS
 
-* High cost if slow process time with large memory need and al ot of requests
+* High cost if slow process time with large memory need and a lot of requests
 * Function startup cost is high
-* Function lives only for 300 sec (AWS)
+* Function lives only for 300 sec (AWS, Azure etc)
 * Not everything is suited for this
     * high performance service
     * process that spans over several minutes
@@ -139,8 +139,8 @@ smantziaris@gmail.com
 
 ### [serverless.com framework](https://serverless.com/)
 
-* all in one solution
-* powered by CloudFormation, but abstracted away complexity
+* tries to be a all in one solution
+* powered by CloudFormation, but abstracted away complexity of it
 * powerful and easy cli
 * multi language support (js, C#, Java, Python)
 * multi cloud provider support (AWS, Azure etc)
@@ -192,7 +192,7 @@ smantziaris@gmail.com
 
 ### First we pray to the demo gods!!!
 
-![Image of Yaktocat](./images/Demo.jpeg)
+![Demo](./images/Demo.jpeg)
 
 ---
 
@@ -209,6 +209,7 @@ smantziaris@gmail.com
     * monitor logs using `sls`
 * Make a change,deploy and test
 * Rollback due to a ***bug***
+* Remove the service
 
 ***
 
