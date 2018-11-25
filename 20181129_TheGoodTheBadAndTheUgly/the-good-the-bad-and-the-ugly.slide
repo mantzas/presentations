@@ -1,0 +1,113 @@
+The Good, the Bad and the Ugly
+
+29 Nov 2018
+Tags: go, microservices, patron
+
+Sotirios Mantziaris
+Refreshment Engineer (καφετζής)
+
+smantziaris@gmail.com
+http://blog.mantziaris.eu
+https://github.com/mantzas
+https://gr.linkedin.com/in/mantzas
+@smantziaris
+
+* aka Go, Microservices and the Patron Framework
+
+* The good
+
+* 
+.image img/600px-Go_Logo_Aqua.png
+
+* why?
+
+- easy to learn and operate
+- concurrent
+- fast build, test and run
+- build-in testing
+- build-in profiling (pprof)
+- cross compilation
+- single binary deployment
+- a lot of high quality packages out there
+- docker friendly
+
+* "cloud native" language
+
+* The bad
+
+* Microservices
+
+There is a lot of hype around them but few people mention the problems tha come with them.
+
+- distributed computing and the fallacies of them
+- response times increase
+- troubleshooting
+- debugging is hard
+- availability decrease
+-- https://devops.stackexchange.com/questions/711/how-do-you-calculate-the-compound-service-level-agreement-sla-for-cloud-servic
+- coupling, creation based on opportunity and not on domain which leads coupling and the "distributed monolith"
+- no shared db, which leads to coupling
+- every access goes through the service and not to the db itself...
+
+good practices...
+
+- event driven as the first option
+- observability
+-- logging
+-- metrics
+-- distributed tracing
+- circuit breakers in place
+- correct timeouts
+
+* The ugly
+
+* The patron framework
+
+goals of the framework.
+
+- written in go
+- boilerplate code, that after a while gets boring, is now gone
+- go mod support
+- abstract away the
+- observability build in
+-- structured log, with zerolog, to std out
+-- metrics with prometheus
+-- distributed tracing with jaeger's opentracing implementation
+- health check via '/health'
+- service info available via '/info'
+- pprof available via '/debug/pprof'
+- version support
+- clients with distr. tracing available
+-- http
+-- sql
+-- amqp
+-- kafka
+- sane defaults
+-- logging info level
+-- disabled distibuted tracing
+-- metrics available '/metrics'
+- patron cli with
+-- docker support
+-- packages template
+-- go module and vendoring
+-- git repo creation
+
+keeping it simple and small????
+
+what's next?
+
+- circuit breaker integration in clients
+- consumer groups in kafka 
+- security
+- protobuf support
+- maybe throttling
+- check out https://github.com/mantzas/patron/issues
+
+if you want do contribute pls do.
+
+* Show time
+
+- patron cli
+- HTTP component and client
+- Kafka component and client
+- RabbitMQ component and client
