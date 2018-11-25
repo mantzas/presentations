@@ -39,17 +39,22 @@ https://gr.linkedin.com/in/mantzas
 
 * Microservices
 
-TODO: add the benefits here and praise them to go to the bad things...
+There is a lot of hype around microservices and they can if used correctly solve some problems of a huge monolith.
+Few people mention the problems and complexity that come with them.
 
-There is a lot of hype around them but few people mention the problems tha come with them.
-They solve some problems but they bring a lot of new problems to the table so be aware.
 They are no silver bullets.
+
+Another good point made by Martin Fowler is: 
+    
+    don’t even consider microservices unless you have a system 
+    that’s too complex to manage as a monolith.
+
 
 * distributed computing is a hard problem
 
 - orchestrate multiple services
-- multiple deployments
-- monitoring
+- manage deployments
+- monitor everything
 - [[https://en.wikipedia.org/wiki/CAP_theorem][CAP Theorem]]
     ... due to the fact that network partitioning has to be tolerated 
     there are only Consistency or Availability.
@@ -113,30 +118,38 @@ how can this happen?
 
 - microservice creation based on opportunity
 - shared db
-- access the db and not throught the API
+- access the db directly and not through a API
+- shared components, like models and business code
 
-the above will lead to the phenomenon of a "distributed monolith"
+the above will lead to what is commonly called a "distributed monolith".
 
-how to spot them?
+* Indications of a "distributed monolith"?
 
-- 
+- A change to one microservice often requires changes to other microservices
+- Deploying one microservice requires other microservices to be deployed at the same time
+- Your microservices are overly chatty
+- The same developers work across a large number of microservices
+- Many of your microservices share a datastore
+- Your microservices share a lot of the same code or models
 
 * troubleshooting
 
-- debugging is hard
-- tracing
-- logging
+In order to troubleshoot you have to look into multiple services to find the problem.
 
-good practices...
+- Metrics, help send alters when conditions are met
+- Metrics, help you identify the general area of a problem e.g. response time is high
+- Distributed tracing, can narrow down the problem e.g. response time of the db is high on service A
+- Logging, can show what the developer logs eg what happened to payment with id xxx
 
-- DDD
-- event driven as the first option
-- observability
--- logging
--- metrics
--- distributed tracing
-- circuit breakers in place
-- correct timeouts
+all the above fall under the category of *observability*.
+
+* how can any or all of the previous be avoided?
+
+- DDD can help, eg find bounded contexts
+- event driven as the first option to help decouple 
+- observability with logging, metrics, distributed tracing
+- circuit breakers, correct timeouts in place
+- proper software engineering vs hype driven engineering
 
 * The ugly
 
