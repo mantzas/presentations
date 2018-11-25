@@ -31,26 +31,105 @@ https://gr.linkedin.com/in/mantzas
 - a lot of high quality packages out there
 - docker friendly
 
-* "cloud native" language
+* go is a "cloud native" language
+
+.image img/gopher.png
 
 * The bad
 
 * Microservices
 
-There is a lot of hype around them but few people mention the problems tha come with them.
+TODO: add the benefits here and praise them to go to the bad things...
 
-- distributed computing and the fallacies of them
-- response times increase
-- troubleshooting
+There is a lot of hype around them but few people mention the problems tha come with them.
+They solve some problems but they bring a lot of new problems to the table so be aware.
+They are no silver bullets.
+
+* distributed computing is a hard problem
+
+- orchestrate multiple services
+- multiple deployments
+- monitoring
+- [[https://en.wikipedia.org/wiki/CAP_theorem][CAP Theorem]]
+    ... due to the fact that network partitioning has to be tolerated 
+    there are only Consistency or Availability.
+- [[https://en.wikipedia.org/wiki/PACELC_theorem][PACELC theorem, CAP extension]]
+    ... in case of network partitioning (P) in a distributed computer system, 
+    one has to choose between availability (A) and consistency (C) (as per the CAP theorem), 
+    but else (E), even when the system is running normally in the absence of partitions, 
+    one has to choose between latency (L) and consistency (C).
+
+* Fallacies of distributed computing
+
+- The network is reliable.
+- Latency is zero.
+- Bandwidth is infinite.
+- The network is secure.
+- Topology doesn't change.
+- There is one administrator.
+- Transport cost is zero.
+- The network is homogeneous.
+
+* response times (RT) increases
+
+user > Service A > Service B > Service C
+
+where:
+
+    RT Service A: 60ms
+    RT Service B: 30ms
+    RT Service C: 50ms
+
+Total response time for the user is:
+
+    RT Service C + RT Service B + RT Service A = 140ms
+
+which will be generally bigger than the response time of a monolith due to network, marshal/unmarshal data etc.
+
+* availability decreases
+
+e.g.
+
+    Availability Service A: 99.9%
+    Availability Service B: 99.9%
+    Availability Service C: 99.9%
+
+the joint availability ([[https://en.wikipedia.org/wiki/Probability#Mathematical_treatment][probability rules]], independent events) for the user is:
+
+    Availability Service A * Availability Service B * Availability Service C ~ 99.7%
+
+Even if all services are 99.9% the joint availability is lower than the individual ones.
+
+The difference is not that small! ([[https://uptime.is/][downtime calculation]])
+
+    99.9 ~ 8h 45m 57.0s downtime
+    99.7 ~ 1d 2h 17m 50.9s downtime
+
+* coupling
+
+[[https://en.wikipedia.org/wiki/Coupling_(computer_programming)][coupling]] is the degree of interdependence between software modules.
+
+how can this happen?
+
+- microservice creation based on opportunity
+- shared db
+- access the db and not throught the API
+
+the above will lead to the phenomenon of a "distributed monolith"
+
+how to spot them?
+
+- 
+
+* troubleshooting
+
 - debugging is hard
-- availability decrease
--- https://devops.stackexchange.com/questions/711/how-do-you-calculate-the-compound-service-level-agreement-sla-for-cloud-servic
-- coupling, creation based on opportunity and not on domain which leads coupling and the "distributed monolith"
-- no shared db, which leads to coupling
-- every access goes through the service and not to the db itself...
+- tracing
+- logging
 
 good practices...
 
+- DDD
 - event driven as the first option
 - observability
 -- logging
