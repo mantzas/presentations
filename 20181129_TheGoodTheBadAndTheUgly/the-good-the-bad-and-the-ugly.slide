@@ -31,7 +31,9 @@ https://gr.linkedin.com/in/mantzas
 - a lot of high quality packages out there
 - docker friendly
 
-* go is a "cloud native" language
+go is a "cloud native" language
+
+* 
 
 .image img/gopher.png
 
@@ -39,15 +41,15 @@ https://gr.linkedin.com/in/mantzas
 
 * Microservices
 
-There is a lot of hype around microservices and they can if used correctly solve some problems of a huge monolith.
-Few people mention the problems and complexity that come with them.
+There is a lot of hype around microservices and they can, if used correctly, solve some problems of a huge monolith.
+Unfortunately there is much more emphasis on the good sides than the bad one.
 
 They are no silver bullets.
 
 Another good point made by Martin Fowler is: 
     
-    don’t even consider microservices unless you have a system 
-    that’s too complex to manage as a monolith.
+    don’t even consider microservices unless you have a system that’s too complex to manage 
+    as a monolith.
 
 
 * distributed computing is a hard problem
@@ -58,7 +60,7 @@ Another good point made by Martin Fowler is:
 - [[https://en.wikipedia.org/wiki/CAP_theorem][CAP Theorem]]
     ... due to the fact that network partitioning has to be tolerated 
     there are only Consistency or Availability.
-- [[https://en.wikipedia.org/wiki/PACELC_theorem][PACELC theorem, CAP extension]]
+- [[https://en.wikipedia.org/wiki/PACELC_theorem][PACELC theorem (CAP theorem extension)]]
     ... in case of network partitioning (P) in a distributed computer system, 
     one has to choose between availability (A) and consistency (C) (as per the CAP theorem), 
     but else (E), even when the system is running normally in the absence of partitions, 
@@ -75,7 +77,7 @@ Another good point made by Martin Fowler is:
 - Transport cost is zero.
 - The network is homogeneous.
 
-* response times (RT) increases
+* response times (RT) increases (optimistic)
 
 user > Service A > Service B > Service C
 
@@ -90,6 +92,22 @@ Total response time for the user is:
     RT Service C + RT Service B + RT Service A = 140ms
 
 which will be generally bigger than the response time of a monolith due to network, marshal/unmarshal data etc.
+
+* response times (RT) explodes (pessimistic)
+
+user > Service A > Service B > Service C
+
+where:
+
+    RT Service A: 60ms
+    RT Service B: 30ms
+    RT Service C: times out at 60s
+
+Total response time for the user is:
+
+    RT Service C + RT Service B + RT Service A = 1m 90ms
+
+which would not happen in a monolith at all!
 
 * availability decreases
 
@@ -136,17 +154,20 @@ the above will lead to what is commonly called a "distributed monolith".
 
 In order to troubleshoot you have to look into multiple services to find the problem.
 
-- Metrics, help send alters when conditions are met
-- Metrics, help you identify the general area of a problem e.g. response time is high
-- Distributed tracing, can narrow down the problem e.g. response time of the db is high on service A
-- Logging, can show what the developer logs eg what happened to payment with id xxx
+- Metrics
+    help you identify the general area of a problem e.g. response time is high
+
+- Distributed tracing
+    can narrow down the problem e.g. response time of the db is high on service A
+
+- Logging
+    can show details tha are logged eg what happened to payment with id xxx
 
 all the above fall under the category of *observability*.
 
 * how can any or all of the previous be avoided?
 
 - DDD can help, e.g. separate bounded contexts
-- event driven as the first option to help decouple event more 
 - observability with logging, metrics, distributed tracing
 - circuit breakers, correct timeouts in place
 - proper software engineering vs hype driven engineering
@@ -155,15 +176,28 @@ all the above fall under the category of *observability*.
 
 * The patron framework
 
-The patron framework helps implementing go microservices by abstracting away most of the boilerplate code.
-Writing all the boilerplate code is cumbersome and gets boring after a few microservices have been created.
-Patron lifts this burden and allows to focus on the code that gives the actual value.
-Patron tries to incorporate good practices.
+Writing all the boilerplate code for a service is cumbersome and gets boring after a few microservices have been created.
+
+Patron
+
+- helps implementing go microservices by abstracting away most of the boilerplate code
+- lifts this burden and allows to focus on the code that gives the actual value
+- tries to incorporate good practices.
+
+* Why the name?
+
+Patron is french for 
+
+- template(blueprint) or pattern
+- but it means also boss which we found out later :)
+
+like a sewing pattern for jeans
+
+.image img/jeans.jpg
 
 * Features 1/2
 
-- go mod support
-- versioning support
+- components available for HTTP (sync), AMQP and Kafka (async)
 - structured log, with [[https://github.com/rs/zerolog][zerolog]], to std out
 - metrics with [[https://prometheus.io/][prometheus]]
 - distributed tracing with [[https://www.jaegertracing.io/][jaeger's]] [[https://opentracing.io/][opentracing]] implementation
@@ -174,6 +208,8 @@ Patron tries to incorporate good practices.
 
 * Features 2/2
 
+- go mod support
+- versioning support
 - clients with integrated distributed tracing (http, sql, amqp, kafka)
 - patron cli for bootstrapping a service
     docker support
@@ -184,18 +220,19 @@ Patron tries to incorporate good practices.
 * what's next?
 
 - circuit breaker integration in clients
-- consumer groups in kafka 
-- security
+- consumer groups supported Kafka consumer
+- API security
 - protobuf support
 - maybe throttling?
 - check out [[https://github.com/mantzas/patron/issues][issues]]
 
-Contributions and ideas are welcome.
+Contributions and ideas are highly welcome
 
 * Concepts
 
 - The service is the entry point which runs components
 - A component is given to the service in order to run it
+- A component has to implement the below interface
 
     type Component interface {
         Run(ctx context.Context) error
@@ -204,7 +241,6 @@ Contributions and ideas are welcome.
 
     Run() is used to start a component, context is used to handle cancellation
     Info() is used to describe the component
-- Implemented components available for HTTP (sync), AMQP and Kafka (async)
 - check out [[https://github.com/mantzas/patron/blob/master/README.md][README.md]] for more details
 
 * Demo goals
