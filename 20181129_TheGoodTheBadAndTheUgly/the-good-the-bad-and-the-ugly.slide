@@ -145,8 +145,8 @@ all the above fall under the category of *observability*.
 
 * how can any or all of the previous be avoided?
 
-- DDD can help, eg find bounded contexts
-- event driven as the first option to help decouple 
+- DDD can help, e.g. separate bounded contexts
+- event driven as the first option to help decouple event more 
 - observability with logging, metrics, distributed tracing
 - circuit breakers, correct timeouts in place
 - proper software engineering vs hype driven engineering
@@ -155,51 +155,86 @@ all the above fall under the category of *observability*.
 
 * The patron framework
 
-goals of the framework.
+The patron framework helps implementing go microservices by abstracting away most of the boilerplate code.
+Writing all the boilerplate code is cumbersome and gets boring after a few microservices have been created.
+Patron lifts this burden and allows to focus on the code that gives the actual value.
+Patron tries to incorporate good practices.
 
-- written in go
-- boilerplate code, that after a while gets boring, is now gone
+* Features 1/2
+
 - go mod support
-- abstract away the
-- observability build in
--- structured log, with zerolog, to std out
--- metrics with prometheus
--- distributed tracing with jaeger's opentracing implementation
+- versioning support
+- structured log, with [[https://github.com/rs/zerolog][zerolog]], to std out
+- metrics with [[https://prometheus.io/][prometheus]]
+- distributed tracing with [[https://www.jaegertracing.io/][jaeger's]] [[https://opentracing.io/][opentracing]] implementation
 - health check via '/health'
 - service info available via '/info'
 - pprof available via '/debug/pprof'
-- version support
-- clients with distr. tracing available
--- http
--- sql
--- amqp
--- kafka
-- sane defaults
--- logging info level
--- disabled distibuted tracing
--- metrics available '/metrics'
-- patron cli with
--- docker support
--- packages template
--- go module and vendoring
--- git repo creation
+- metrics available '/metrics'
 
-keeping it simple and small????
+* Features 2/2
 
-what's next?
+- clients with integrated distributed tracing (http, sql, amqp, kafka)
+- patron cli for bootstrapping a service
+    docker support
+    packages template
+    go module and optional vendoring
+    git repository creation
+
+* what's next?
 
 - circuit breaker integration in clients
 - consumer groups in kafka 
 - security
 - protobuf support
-- maybe throttling
-- check out https://github.com/mantzas/patron/issues
+- maybe throttling?
+- check out [[https://github.com/mantzas/patron/issues][issues]]
 
-if you want do contribute pls do.
+Contributions and ideas are welcome.
 
-* Show time
+* Concepts
 
-- patron cli
-- HTTP component and client
-- Kafka component and client
-- RabbitMQ component and client
+- The service is the entry point which runs components
+- A component is given to the service in order to run it
+
+    type Component interface {
+        Run(ctx context.Context) error
+        Info() map[string]interface{}
+    }
+
+    Run() is used to start a component, context is used to handle cancellation
+    Info() is used to describe the component
+- Implemented components available for HTTP (sync), AMQP and Kafka (async)
+- check out [[https://github.com/mantzas/patron/blob/master/README.md][README.md]] for more details
+
+* Demo goals
+
+We create a service that
+
+- receives a HTTP POST request and publishes a message to Kafka
+- receives this message, via a async component with Kafka consumer, and publishes the message to RabbitMQ
+- receives this message, via a async component with AMQP consumer, and logs to stdout
+
+Ideally this should be one service 
+
+* Create a service
+
+- first start all dependent containers (in the workshop's folder)
+
+    docker-compose up -d
+
+check that kafka has started
+
+    docker ps | grep kafka
+
+- create a service using patron cli
+
+    patron -p test -m "github.com/mantzas/test"  
+
+since we are using go 1.11+ we do not need to be in the GOPATH... at last...
+
+- Dockerfile with versioning support
+
+     go run cmd/test/main.go    
+
+* Show time!
