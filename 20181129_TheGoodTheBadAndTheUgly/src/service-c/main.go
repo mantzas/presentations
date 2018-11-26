@@ -14,7 +14,7 @@ var (
 )
 
 func main() {
-	name := "test"
+	name := "service-c"
 
 	err := patron.SetupLogging(name, version)
 	if err != nil {
