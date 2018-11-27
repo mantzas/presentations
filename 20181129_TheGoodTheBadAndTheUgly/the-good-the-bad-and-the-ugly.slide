@@ -243,25 +243,7 @@ Contributions and ideas are highly welcome
     Info() is used to describe the component
 - check out [[https://github.com/mantzas/patron/blob/master/README.md][README.md]] for more details
 
-* Demo goals
-
-We create a service that
-
-- receives a HTTP POST request and publishes a message to Kafka
-- receives this message, via a async component with Kafka consumer, and publishes the message to RabbitMQ
-- receives this message, via a async component with AMQP consumer, and logs to stdout
-
-Ideally this should be one service 
-
-* Create a service
-
-- first start all dependent containers (in the workshop's folder)
-
-    docker-compose up -d
-
-check that kafka has started
-
-    docker ps | grep kafka
+* Creating a service
 
 - create a service using patron cli
 
@@ -274,3 +256,74 @@ since we are using go 1.11+ we do not need to be in the GOPATH... at last...
      go run cmd/test/main.go    
 
 * Show time!
+
+* Demo goals
+
+We start a service that
+
+- receives a HTTP POST request and publishes a message to Kafka
+- receives this message, via a async component with Kafka consumer, and publishes the message to RabbitMQ
+- receives this message, via a async component with AMQP consumer, and logs to stdout
+
+* Prerequisites
+
+- first start all dependent containers (in the workshop's folder)
+
+    docker-compose up -d
+
+check that kafka has started
+
+    docker ps | grep kafka
+
+* Run the services
+
+- service a (HTTP -> Kafka)
+
+    PATRON_JAEGER_SAMPLER_PARAM=1.0 go run main.go http.go
+
+- service b (Kafka -> RabbitMQ)
+
+    PATRON_JAEGER_SAMPLER_PARAM=1.0 PATRON_HTTP_DEFAULT_PORT=50001 go run main.go kafka.go
+
+- service c (RabbitMQ -> stdout)
+
+    PATRON_JAEGER_SAMPLER_PARAM=1.0 PATRON_HTTP_DEFAULT_PORT=50002 go run main.go amqp.go       
+
+* Kick of the processing
+
+    curl -i -X POST http://localhost:50000
+
+* Checkout (1/2)
+
+- logs STDOUT    
+
+- service info
+
+    http://localhost:50000/info
+    http://localhost:50001/info
+    http://localhost:50002/info
+
+- metrics
+
+    http://localhost:50000/metrics
+    http://localhost:50001/metrics
+    http://localhost:50002/metrics
+
+* Checkout (2/2)
+
+- pprof
+
+    http://localhost:50000/debug/pprof/
+    http://localhost:50001/debug/pprof/
+    http://localhost:50002/debug/pprof/
+
+- health check
+
+    http://localhost:50000/health
+    http://localhost:50001/health
+    http://localhost:50002/health
+
+
+- distributed tracing (jaeger)
+
+    http://localhost:16686/search

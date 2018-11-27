@@ -13,7 +13,7 @@ var (
 )
 
 func main() {
-	name := "service-b"
+	name := "service_b"
 
 	err := patron.SetupLogging(name, version)
 	if err != nil {

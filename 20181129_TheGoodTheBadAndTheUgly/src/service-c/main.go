@@ -6,7 +6,6 @@ import (
 
 	"github.com/mantzas/patron"
 	"github.com/mantzas/patron/log"
-	"github.com/mantzas/patron/sync/http"
 )
 
 var (
@@ -14,7 +13,7 @@ var (
 )
 
 func main() {
-	name := "service-c"
+	name := "service_c"
 
 	err := patron.SetupLogging(name, version)
 	if err != nil {
@@ -22,27 +21,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	httpCmp, err := newHTTPComponent()
-	if err != nil {
-		log.Fatalf("failed to create http component: %v", err)
-	}
-
-	routes := []http.Route{
-		http.NewPostRoute("/", httpCmp.post, true),
-	}
-
-	kafkaCmp, err := newKafkaComponent()
-	if err != nil {
-		log.Fatalf("failed to create kafka component: %v", err)
-	}
-
 	amqpCmp, err := newAmqpComponent()
 	if err != nil {
 		log.Fatalf("failed to create amqp component: %v", err)
 	}
 
-	srv, err := patron.New(name, version, patron.Routes(routes),
-		patron.Components(kafkaCmp.cmp, amqpCmp.cmp))
+	srv, err := patron.New(name, version, patron.Components(amqpCmp.cmp))
 	if err != nil {
 		log.Fatalf("failed to create service: %v", err)
 	}
