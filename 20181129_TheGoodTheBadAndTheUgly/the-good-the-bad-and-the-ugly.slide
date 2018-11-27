@@ -147,7 +147,7 @@ the above will lead to what is commonly called a "distributed monolith".
 - Deploying one microservice requires other microservices to be deployed at the same time
 - Your microservices are overly chatty
 - The same developers work across a large number of microservices
-- Many of your microservices share a datastore
+- Many of your microservices share a data storage
 - Your microservices share a lot of the same code or models
 
 * troubleshooting
