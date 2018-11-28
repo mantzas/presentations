@@ -23,7 +23,7 @@ https://gr.linkedin.com/in/mantzas
 
 - easy to learn and operate
 - concurrent
-- fast build, test and run
+- fast build, test and run cycle
 - build-in testing
 - build-in profiling (pprof)
 - cross compilation
@@ -31,7 +31,7 @@ https://gr.linkedin.com/in/mantzas
 - a lot of high quality packages out there
 - docker friendly
 
-go is a "cloud native" language
+go could be called a "cloud native" language
 
 * 
 
@@ -41,16 +41,18 @@ go is a "cloud native" language
 
 * Microservices
 
-There is a lot of hype around microservices and they can, if used correctly, solve some problems of a huge monolith.
-Unfortunately there is much more emphasis on the good sides than the bad one.
+There is a lot of hype around microservices and they can, if used correctly, solve some problems that exist in a big monolith.
+
+Unfortunately there is much more emphasis on the good sides than the bad ones.
 
 They are no silver bullets.
 
-Another good point made by Martin Fowler is: 
+- Another good point made by Martin Fowler is: 
     
     don’t even consider microservices unless you have a system that’s too complex to manage 
     as a monolith.
 
+* Let's discuss some of the bad ones
 
 * distributed computing is a hard problem
 
@@ -77,9 +79,9 @@ Another good point made by Martin Fowler is:
 - Transport cost is zero.
 - The network is homogeneous.
 
-* response times (RT) increases (optimistic)
+* Response times (RT) increases (optimistic)
 
-user > Service A > Service B > Service C
+user --> Service A --> Service B --> Service C
 
 where:
 
@@ -93,9 +95,9 @@ Total response time for the user is:
 
 which will be generally bigger than the response time of a monolith due to network, marshal/unmarshal data etc.
 
-* response times (RT) explodes (pessimistic)
+* Response times (RT) explodes (pessimistic)
 
-user > Service A > Service B > Service C
+user --> Service A --> Service B --> Service C
 
 where:
 
@@ -109,7 +111,7 @@ Total response time for the user is:
 
 which would not happen in a monolith at all!
 
-* availability decreases
+* Availability decreases
 
 e.g.
 
@@ -128,7 +130,7 @@ The difference is not that small! ([[https://uptime.is/][downtime calculation]])
     99.9 ~ 8h 45m 57.0s downtime
     99.7 ~ 1d 2h 17m 50.9s downtime
 
-* coupling
+* Coupling
 
 [[https://en.wikipedia.org/wiki/Coupling_(computer_programming)][coupling]] is the degree of interdependence between software modules.
 
@@ -150,7 +152,7 @@ the above will lead to what is commonly called a "distributed monolith".
 - Many of your microservices share a data storage
 - Your microservices share a lot of the same code or models
 
-* troubleshooting
+* Troubleshooting failures
 
 In order to troubleshoot you have to look into multiple services to find the problem.
 
@@ -168,9 +170,10 @@ all the above fall under the category of *observability*.
 * how can any or all of the previous be avoided?
 
 - DDD can help, e.g. separate bounded contexts
-- observability with logging, metrics, distributed tracing
-- circuit breakers, correct timeouts in place
-- proper software engineering vs hype driven engineering
+- Observability with logging, metrics, distributed tracing
+- Circuit breakers, correct timeouts in place
+- Not everything has to be microservices
+- Data duplication can be helpful
 
 * The ugly
 
@@ -181,10 +184,10 @@ Writing all the boilerplate code for a service is cumbersome and gets boring aft
 Patron
 
 - helps implementing go microservices by abstracting away most of the boilerplate code
-- lifts this burden and allows to focus on the code that gives the actual value
+- allows to focus on the code that gives the actual value
 - tries to incorporate good practices.
 
-* Why the name?
+* Why this name?
 
 Patron is french for 
 
@@ -198,7 +201,7 @@ like a sewing pattern for jeans
 * Features 1/2
 
 - components available for HTTP (sync), AMQP and Kafka (async)
-- structured log, with [[https://github.com/rs/zerolog][zerolog]], to std out
+- structured log, with [[https://github.com/rs/zerolog][zerolog]], to STDOUT
 - metrics with [[https://prometheus.io/][prometheus]]
 - distributed tracing with [[https://www.jaegertracing.io/][jaeger's]] [[https://opentracing.io/][opentracing]] implementation
 - health check via '/health'
@@ -211,27 +214,29 @@ like a sewing pattern for jeans
 - go mod support
 - versioning support
 - clients with integrated distributed tracing (http, sql, amqp, kafka)
-- patron cli for bootstrapping a service
+- clients with timeout support
+- patron cli for bootstrapping a service with: 
     docker support
     packages template
     go module and optional vendoring
     git repository creation
+    readme creation
 
 * what's next?
 
-- circuit breaker integration in clients
+- client circuit breaker integration
 - consumer groups supported Kafka consumer
-- API security
-- protobuf support
+- API security abstraction
+- protobuf support HTTP
 - maybe throttling?
 - check out [[https://github.com/mantzas/patron/issues][issues]]
 
-Contributions and ideas are highly welcome
+Contributions and ideas are highly welcome!
 
 * Concepts
 
-- The service is the entry point which runs components
-- A component is given to the service in order to run it
+- The service is the core entity
+- A component is managed by the service (run, error handling, cancel)
 - A component has to implement the below interface
 
     type Component interface {
@@ -241,6 +246,7 @@ Contributions and ideas are highly welcome
 
     Run() is used to start a component, context is used to handle cancellation
     Info() is used to describe the component
+
 - check out [[https://github.com/mantzas/patron/blob/master/README.md][README.md]] for more details
 
 * Creating a service
@@ -251,7 +257,7 @@ Contributions and ideas are highly welcome
 
 since we are using go 1.11+ we do not need to be in the GOPATH... at last...
 
-- Dockerfile with versioning support
+- In order to run
 
      go run cmd/test/main.go    
 
@@ -259,19 +265,19 @@ since we are using go 1.11+ we do not need to be in the GOPATH... at last...
 
 * Demo goals
 
-We start a service that
+We create services that
 
-- receives a HTTP POST request and publishes a message to Kafka
-- receives this message, via a async component with Kafka consumer, and publishes the message to RabbitMQ
-- receives this message, via a async component with AMQP consumer, and logs to stdout
+- receive a HTTP POST and publishes a message to Kafka (service a)
+- receive the above message, via a async component with Kafka consumer, and publishes a message to RabbitMQ (service b)
+- receives the above message, via a async component with AMQP consumer, and logs to STDOUT (service c)
 
 * Prerequisites
 
-- first start all dependent containers (in the workshop's folder)
+- first start all dependent containers (Kafka, RabbitMQ, Jaeger)
 
     docker-compose up -d
 
-check that kafka has started
+check that kafka has started 
 
     docker ps | grep kafka
 
