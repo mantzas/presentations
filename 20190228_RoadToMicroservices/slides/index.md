@@ -6,7 +6,9 @@
 
 ***
 
-# Road to Microservices
+## Road to Microservices
+
+### From Monolith to microservices
 
 Sotirios Mantziaris  
 Refreshment Engineer (καφετζής)
@@ -19,130 +21,234 @@ https://gr.linkedin.com/in/mantzas
 
 ***
 
-### Reveal.js
+## They are no silver bullets
 
-- A framework for easily creating beautiful presentations using HTML.
+- Avoid HDD (Hype Driven Development)
 
-> **Atwood's Law**: any application that can be written in JavaScript, will eventually be written in JavaScript.
+- Another good point made by Martin Fowler is:
 
-***
-
-### FSharp.Formatting
-
-- F# tools for generating documentation (Markdown processor and F# code formatter).
-- It parses markdown and F# script file and generates HTML or PDF.
-- Code syntax highlighting support.
-- It also evaluates your F# code and produce tooltips.
+> don’t even consider microservices unless you have a system that’s too complex to manage
+> as a monolith.
 
 ***
 
-### Syntax Highlighting
+## Distributed Systems are hard
 
-#### F# (with tooltips)
+***
 
-    let a = 5
-    let factorial x = [1..x] |> List.reduce (*)
-    let c = factorial a
+### [Fallacies of distributed computing](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing)
 
----
+- The network is reliable.
+- Latency is zero.
+- Bandwidth is infinite.
+- The network is secure.
+- Topology doesn't change.
+- There is one administrator.
+- Transport cost is zero.
+- The network is homogeneous.
 
-#### C#
+***
 
-    [lang=cs]
-    using System;
+### [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem)
 
-    class Program
-    {
-        static void Main()
-        {
-            Console.WriteLine("Hello, world!");
-        }
-    }
+> ... due to the fact that network partitioning has to be tolerated 
+> there are only Consistency or Availability.
 
----
+***
 
-#### JavaScript
+### [PACELC theorem (CAP theorem extension)](https://en.wikipedia.org/wiki/PACELC_theorem)
 
-    [lang=js]
-    function copyWithEvaluation(iElem, elem) {
-        return function (obj) {
-            var newObj = {};
-            for (var p in obj) {
-                var v = obj[p];
-                if (typeof v === "function") {
-                    v = v(iElem, elem);
-                }
-                newObj[p] = v;
-            }
-            if (!newObj.exactTiming) {
-                newObj.delay += exports._libraryDelay;
-            }
-            return newObj;
-        };
-    }
+> ... in case of network partitioning (P) in a distributed computer system, 
+> one has to choose between availability (A) and consistency (C) (as per the CAP theorem), 
+> but else (E), even when the system is running normally in the absence of partitions, 
+> one has to choose between latency (L) and consistency (C).
 
+***
+
+## Problem: Infrastructure
+
+- Orchestrate multiple services
+- Manage Deployments
 
 ---
 
-#### Haskell
- 
-    [lang=haskell]
-    recur_count k = 1 : 1 : 
-        zipWith recurAdd (recur_count k) (tail (recur_count k))
-            where recurAdd x y = k * x + y
+## Solution: Infrastructure
 
-    main = do
-      argv <- getArgs
-      inputFile <- openFile (head argv) ReadMode
-      line <- hGetLine inputFile
-      let [n,k] = map read (words line)
-      printf "%d\n" ((recur_count k) !! (n-1))
+- Orchestration: [Kubernetes](https://kubernetes.io/)
+- Deployments: [Docker Containers](https://www.docker.com/why-docker), [Helm](https://helm.sh/) and CI/CD of your choice
 
-*code from [NashFP/rosalind](https://github.com/NashFP/rosalind/blob/master/mark_wutka%2Bhaskell/FIB/fib_ziplist.hs)*
+***
+
+## Problem: Observability
+
+- Logging
+- Metrics
+- Distributed Tracing
 
 ---
 
-### SQL
+## Solution: Observability
 
-    [lang=sql]
-    select *
-    from
-    (select 1 as Id union all select 2 union all select 3) as X
-    where Id in (@Ids1, @Ids2, @Ids3)
+- Logging: [ELK](https://www.elastic.co/elk-stack)
+- Metrics: [Prometheus](https://prometheus.io/) (or [InfluxDB](https://www.influxdata.com/)) and [Grafana](https://grafana.com/)
+- Distributed Tracing: [Opentracing](https://opentracing.io/): [Jaeger](https://www.jaegertracing.io/)
 
-*sql from [Dapper](https://code.google.com/p/dapper-dot-net/)*
+***
+
+## Problem: Programming Language
+
+- Which One?
+- More than one?
 
 ---
 
-### Paket
+## Solution: Language
 
-    [lang=paket]
-    source https://nuget.org/api/v2
+- Any language that is easily containerized
+- Adopt 2 or 3
 
-    nuget Castle.Windsor-log4net >= 3.2
-    nuget NUnit
-    
-    github forki/FsUnit FsUnit.fs
-      
+> *but look especially into...*
+
 ---
 
-### C/AL
+## Solution: [Go](https://golang.org/)
 
-    [lang=cal]
-    PROCEDURE FizzBuzz(n : Integer) r_Text : Text[1024];
-    VAR
-      l_Text : Text[1024];
-    BEGIN
-      r_Text := '';
-      l_Text := FORMAT(n);
+- *Cloud native*
+- Concurrent
+- Fast
+- Easy to learn
+- Maintainable
+- Great tooling (testing, profiling etc.)
+- Comprehensive std packages and 3rd party packages
+- Docker friendly (FROM SCRATCH)
 
-      IF (n MOD 3 = 0) OR (STRPOS(l_Text,'3') > 0) THEN
-        r_Text := 'Fizz';
-      IF (n MOD 5 = 0) OR (STRPOS(l_Text,'5') > 0) THEN
-        r_Text := r_Text + 'Buzz';
-      IF r_Text = '' THEN
-        r_Text := l_Text;
-    END;
+> Almost every provided solution here is written in go e.g. Kubernetes, Docker, Prometheus etc.
+
+***
+
+## Problem: Any help
+
+- Framework?
+
+---
+
+## Solution: Any help
+
+- [Spring Cloud Java](https://spring.io/projects/spring-cloud)
+- [Flask](http://flask.pocoo.org/)
+- [Go kit](https://gokit.io/)
+
+> *but look especially into...*
+
+---
+
+## Solution: [Patron](https://github.com/mantzas/patron)
+
+- 
+- [Beat](https://github.com/thebeatapp/patron) forked and adopted
+
+## How to carve out those things?
+
+- DDD
+
+***
+
+* Response times (RT) increases (optimistic)
+
+user --> Service A --> Service B --> Service C
+
+where:
+
+    RT Service A: 60ms
+    RT Service B: 30ms
+    RT Service C: 50ms
+
+Total response time for the user is:
+
+    RT Service C + RT Service B + RT Service A = 140ms
+
+which will be generally bigger than the response time of a monolith due to network, marshal/unmarshal data etc.
+
+* Response times (RT) explodes (pessimistic)
+
+user --> Service A --> Service B --> Service C
+
+where:
+
+    RT Service A: 60ms
+    RT Service B: 30ms
+    RT Service C: times out at 60s
+
+Total response time for the user is:
+
+    RT Service C + RT Service B + RT Service A = 1m 90ms
+
+which would not happen in a monolith at all!
+
+* Availability decreases
+
+e.g.
+
+    Availability Service A: 99.9%
+    Availability Service B: 99.9%
+    Availability Service C: 99.9%
+
+the joint availability ([[https://en.wikipedia.org/wiki/Probability#Mathematical_treatment][probability rules]], independent events) for the user is:
+
+    Availability Service A * Availability Service B * Availability Service C ~ 99.7%
+
+Even if all services are 99.9% the joint availability is lower than the individual ones.
+
+The difference is not that small! ([[https://uptime.is/][downtime calculation]])
+
+    99.9 ~ 8h 45m 57.0s downtime
+    99.7 ~ 1d 2h 17m 50.9s downtime
+
+* Coupling
+
+[[https://en.wikipedia.org/wiki/Coupling_(computer_programming)][coupling]] is the degree of interdependence between software modules.
+
+how can this happen?
+
+- microservice creation based on opportunity
+- shared db
+- access the db directly and not through a API
+- shared components, like models and business code
+
+the above will lead to what is commonly called a "distributed monolith".
+
+* Indications of a "distributed monolith"?
+
+- A change to one microservice often requires changes to other microservices
+- Deploying one microservice requires other microservices to be deployed at the same time
+- Your microservices are overly chatty
+- The same developers work across a large number of microservices
+- Many of your microservices share a data storage
+- Your microservices share a lot of the same code or models
+
+* Troubleshooting failures
+
+In order to troubleshoot you have to look into multiple services to find the problem.
+
+- Metrics
+    help you identify the general area of a problem e.g. response time is high
+
+- Distributed tracing
+    can narrow down the problem e.g. response time of the db is high on service A
+
+- Logging
+    can show details tha are logged eg what happened to payment with id xxx
+
+all the above fall under the category of *observability*.
+
+* how can any or all of the previous be avoided?
+
+- DDD can help, e.g. separate bounded contexts
+- Observability with logging, metrics, distributed tracing
+- Circuit breakers, correct timeouts in place
+- Not everything has to be microservices
+- Data duplication can be helpful
+
 
 ***
 
