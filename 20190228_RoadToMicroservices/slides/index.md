@@ -133,6 +133,7 @@ Hype Driven Development
 ## Solution: [Go](https://golang.org/)
 
 - *Cloud native*
+- statically typed, statically linked, one executable
 - Concurrent
 - Fast
 - Easy to learn
@@ -140,6 +141,7 @@ Hype Driven Development
 - Great tooling (testing, profiling etc.)
 - Comprehensive std packages and 3rd party packages
 - Docker friendly (FROM SCRATCH)
+- see you @ [Athens Gophers Meetup](https://www.meetup.com/Athens-Gophers/)
 
 > Almost every provided solution here is written in go e.g. Kubernetes, Docker, Prometheus etc.
 
