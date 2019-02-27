@@ -69,9 +69,13 @@ Hype Driven Development
 
 ***
 
+## Problem and Solutions
+
+***
+
 ## Problem: Failures
 
-- Errors
+- Error handling
 - Slow response times
 
 ---
@@ -80,14 +84,14 @@ Hype Driven Development
 
 - [Circuit Breaker](https://martinfowler.com/bliki/CircuitBreaker.html)
 - Proper Timeouts
-- Fail fast
+- Generally fail fast
 
 ***
 
 ## Problem: Infrastructure
 
-- Orchestrate multiple services
-- Manage Deployments
+- Orchestrate microservices
+- Continuous deployments
 
 ---
 
@@ -135,12 +139,12 @@ Hype Driven Development
 - *Cloud native*
 - statically typed, statically linked, one executable
 - Concurrent
-- Fast
+- Fast and Furious
 - Easy to learn
-- Maintainable
+- Easy to maintain
 - Great tooling (testing, profiling etc.)
-- Comprehensive std packages and 3rd party packages
-- Docker friendly (FROM SCRATCH)
+- Comprehensive std packages and rich 3rd party packages
+- Docker friendly e.g. `FROM SCRATCH` creates executable sized container
 - see you @ [Athens Gophers Meetup](https://www.meetup.com/Athens-Gophers/)
 
 > Almost every provided solution here is written in go e.g. Kubernetes, Docker, Prometheus etc.
@@ -179,7 +183,14 @@ Hype Driven Development
 
 ## Solution: [Patron](https://github.com/mantzas/patron)
 
-- 
+- Integrated all the above best practices
+- Support for sync component e.g. HTTP
+- Support for async component e.g. Kafka, AMQP (RabbitMQ)
+- Support other components via simple interface
+- Component handler are agnostic of the underlying delivery
+- Observability: Structured logging, Prometheus metrics, Jaeger distributed tracing
+- Clients with integrated trace propagation e.g. HTTP, Kafka producer, AMQP publisher
+- Open Source, Apache 2 License
 - [Beat](https://github.com/thebeatapp/patron) forked and adopted
 
 ***
@@ -189,6 +200,27 @@ Hype Driven Development
 - [Coupling](https://en.wikipedia.org/wiki/Coupling_(computer_programming))
 - Distributed Monolith
 
+---
+
 ## Solution: How to start
 
 - [DDD](https://en.wikipedia.org/wiki/Domain-driven_design)
+- Start small with a good defined domain
+- [Strangler Pattern](https://developer.ibm.com/articles/cl-strangler-application-pattern-microservices-apps-trs/)
+
+***
+
+## Enjoy the ride
+
+***
+
+## Q&A
+
+***
+
+## Stuff
+
+- Slides - https://github.com/mantzas/presentations
+- Patron - https://github.com/mantzas/patron
+- Blog - https://blog.mantziaris.eu
+- Athens Gophers Meetup - https://www.meetup.com/Athens-Gophers
