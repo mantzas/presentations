@@ -6,18 +6,20 @@
 
 ***
 
-## Road to Microservices
-
-### From Monolith to microservices
+# Road to Microservices
 
 Sotirios Mantziaris  
 Refreshment Engineer (καφετζής)
 
 smantziaris@gmail.com  
-http://blog.mantziaris.eu  
-https://github.com/mantzas  
-https://gr.linkedin.com/in/mantzas  
-@smantziaris  
+<http://blog.mantziaris.eu>  
+<https://github.com/mantzas>  
+<https://gr.linkedin.com/in/mantzas>  
+@smantziaris
+
+***
+
+## From Monolith to microservices
 
 ***
 
@@ -55,16 +57,16 @@ Hype Driven Development
 
 ### [CAP Theorem](https://en.wikipedia.org/wiki/CAP_theorem)
 
-> ... due to the fact that network partitioning has to be tolerated 
+> ... due to the fact that network partitioning has to be tolerated
 > there are only Consistency or Availability.
 
 ---
 
 ### [PACELC theorem (CAP theorem extension)](https://en.wikipedia.org/wiki/PACELC_theorem)
 
-> ... in case of network partitioning (P) in a distributed computer system, 
-> one has to choose between availability (A) and consistency (C) (as per the CAP theorem), 
-> but else (E), even when the system is running normally in the absence of partitions, 
+> ... in case of network partitioning (P) in a distributed computer system,
+> one has to choose between availability (A) and consistency (C) (as per the CAP theorem),
+> but else (E), even when the system is running normally in the absence of partitions,
 > one has to choose between latency (L) and consistency (C).
 
 ***
@@ -220,7 +222,7 @@ Hype Driven Development
 
 ## Stuff
 
-- Slides - https://github.com/mantzas/presentations
-- Patron - https://github.com/mantzas/patron
-- Blog - https://blog.mantziaris.eu
-- Athens Gophers Meetup - https://www.meetup.com/Athens-Gophers
+- Slides - <https://github.com/mantzas/presentations>
+- Patron - <https://github.com/mantzas/patron>
+- Blog - <https://blog.mantziaris.eu>
+- Athens Gophers Meetup - <https://www.meetup.com/Athens-Gophers>
