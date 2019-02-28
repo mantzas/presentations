@@ -120,6 +120,20 @@ Hype Driven Development
 
 ***
 
+## Problem: Configuration & Secrets
+
+- Configs
+- Secrets
+
+---
+
+## Solution: Configuration & Secrets
+
+- [Consul](https://www.hashicorp.com/products/consul)
+- [Vault](https://www.hashicorp.com/products/vault/)
+
+***
+
 ## Problem: Programming Language
 
 - Which One?
