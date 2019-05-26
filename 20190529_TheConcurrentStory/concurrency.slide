@@ -12,23 +12,18 @@ https://github.com/mantzas
 https://gr.linkedin.com/in/mantzas
 @smantziaris
 
-* Thanks
-
-Stratos Neiros for reviewing.
-
 * Prerequisites
 
 - go basics
-- [[https://golang.org/][go]] installation, v1.11+
+- [[https://golang.org/][go]] installation, v1.12+
 
 "Ζαρζαβατικά" like tomatoes, cabbage etc. are strictly prohibited!
 
 * Intro
 
-A lot of stuff has been shown in the [[https://github.com/taxibeat/go-workshop][2nd workshop]] last year.
+TODO: write a intro about goroutines being simple
 
-
-We go deeper into the rabbit hole...
+Let's go deeper into the rabbit hole...
 
 : How many of you write concurrent code(in any language)?
 : How many of you believe that concurrency is difficult?
@@ -40,7 +35,7 @@ Parallelism is about doing lots of things at once.
 
 .iframe http://www.youtube.com/embed/cN_DpYBzKso 480 853
 
-* Channels, what the fuzz about???
+* Channels, whats the fuzz about???
 
 * Channels (1/2)
 
@@ -285,6 +280,85 @@ Channels internally work with mutexes.
 
 Same as Mutex. Readers don't block each other but one writer blocks all (readers and writers).
 
+* Semaphores (1/3)
+
+According to [[https://en.wikipedia.org/wiki/Semaphore_(programming)][Wikipedia]]
+
+    In computer science, a semaphore is a variable or abstract data type used to control access 
+    to a common resource by multiple processes in a concurrent system 
+    such as a multitasking operating system. 
+
+* Semaphores (2/3)
+
+Using channels:
+
+    var ioLimit = make(chan struct{}, 20)
+
+
+    ioLimit <- struct{}{} // wait
+
+    ...
+
+    <-ioLimit // signal
+
+
+* Semaphores (3/3)
+
+Using "golang.org/x/sync/semaphore"
+
+Next we need to instantiate the weighted semaphore in order to use it.
+
+    var sem = semaphore.NewWeighted(int64(10))
+
+Next we need to know how to increment/decrement the semaphore to actually control and limit our concurrency.
+
+    // Acquiring(blocking) is as easy as
+    sem.Acquire(ctx, 1) // equivalent to sem <- 1 (using channel approach)
+    // Try(non-blocking) to acquire the semaphore. Return true on success else false
+    acq := sem.TryAcquire(1)
+
+    // Releasing is as easy as
+    sem.Release(1) // equivalent to <- sem (using channel approach)
+
+
+* Error handling (1/2)
+
+- exit application
+
+    go func() {
+        ...
+        if err != nil {
+            log.Fatalf("error: %v",err)
+        }	
+    }()
+
+: poll: which of you believe this is a good option? Can we do better?
+
+- using error chanel
+
+    go func() {
+        ...
+        if err != nil {
+            chErr <- err
+        }	
+    }()
+
+* Error handling (2/2)
+
+- using result struct with error
+
+    type Result struct {
+        Err error
+        Amount float
+    }
+
+    go func() {
+        ...
+        if err != nil {
+            chRes <- Result{err:err}
+        }	
+    }()
+
 * Concurrency patterns
 
 * Pipeline (1/2)
@@ -340,44 +414,6 @@ Setting up a 3 stage pipeline
 : Is there any reason why the results are ordered?
 : Distribution vs Work Stealing
 
-* Error handling (1/2)
-
-- exit application
-
-    go func() {
-        ...
-        if err != nil {
-            log.Fatalf("error: %v",err)
-        }	
-    }()
-
-: poll: which of you believe this is a good option? Can we do better?
-
-- using error chanel
-
-    go func() {
-        ...
-        if err != nil {
-            chErr <- err
-        }	
-    }()
-
-* Error handling (2/2)
-
-- using result struct with error
-
-    type Result struct {
-        Err error
-        Amount float
-    }
-
-    go func() {
-        ...
-        if err != nil {
-            chRes <- Result{err:err}
-        }	
-    }()
-
 * Q&A (if there is time...)
 
 : How difficult does concurrency in go sound to you now?
@@ -392,3 +428,4 @@ Setting up a 3 stage pipeline
 [[https://blog.golang.org/concurrency-is-not-parallelism][Concurrency is not parallelism]]
 [[https://blog.golang.org/go-concurrency-patterns-timing-out-and][Go Concurrency Patterns: Timing out, moving on]]
 [[https://blog.golang.org/share-memory-by-communicating][Share Memory By Communicating]]
+[[https://en.wikipedia.org/wiki/Semaphore_(programming)][Semaphore Wikipedia]]
