@@ -404,7 +404,7 @@ Setting up a 3 stage pipeline
 : Is there any reason why the results are ordered?
 : Distribution vs Work Stealing
 
-* How many of you believe that concurrency is still difficult?
+* How many of you believe that concurrency is now a little or a lot more easier?
 
 * Q&A (if there is time...)
 
