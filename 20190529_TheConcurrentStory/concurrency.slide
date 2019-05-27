@@ -1,6 +1,6 @@
 The Concurrency Story
 
-25 Jan 2019
+29 May 2019
 Tags: go, concurrency
 
 Sotirios Mantziaris
@@ -19,19 +19,12 @@ https://gr.linkedin.com/in/mantzas
 
 "Ζαρζαβατικά" like tomatoes, cabbage etc. are strictly prohibited!
 
-* Intro
-
-TODO: write a intro about goroutines being simple
-
-Let's go deeper into the rabbit hole...
-
-: How many of you write concurrent code(in any language)?
-: How many of you believe that concurrency is difficult?
+* How many of you believe that concurrency is difficult?
 
 * Concurrency is not parallelism
 
-Concurrency is about dealing with lots of things at once. 
 Parallelism is about doing lots of things at once.
+Concurrency is about dealing with lots of things at once. 
 
 .iframe http://www.youtube.com/embed/cN_DpYBzKso 480 853
 
@@ -43,16 +36,15 @@ Inspired from Hoare's Communicating Sequential Processes, or CSP.
 
 Channels are the pipes that connect concurrent goroutines. 
 You can send values into channels from one goroutine and receive those values into another goroutine.
+Channels is about signaling!
 
-- unbuffered
+- unbuffered, blocks until consumer get the item
 
     ch := make(chan string)
 
-- buffered
+- buffered, blocks after n items if no consumer gets the items out 
 
     ch := make(chan string, 10)
-
-Both block eventually if no consumer is hooked.
 
 : What is the blocking difference?
 
@@ -73,8 +65,6 @@ When using channels as arguments in function and methods we can specify if we:
     func test(ch chan string)
 
 The code is checked compile time!
-
-Channels is about signaling!
 
 * Chanel State (1/2)
 
@@ -146,7 +136,7 @@ Channels is about signaling!
 
 .play src/channel1.go  /START OMIT/,/END OMIT/
 
-ok is false if the channel is closed and val's value is the default for the type
+ok is false if the channel is closed and val's value is the default for the type!!!
 
 - for range loop
 
@@ -413,6 +403,8 @@ Setting up a 3 stage pipeline
 
 : Is there any reason why the results are ordered?
 : Distribution vs Work Stealing
+
+* How many of you believe that concurrency is still difficult?
 
 * Q&A (if there is time...)
 
