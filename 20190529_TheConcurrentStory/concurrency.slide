@@ -35,14 +35,15 @@ Concurrency is about dealing with lots of things at once.
 Inspired from Hoare's Communicating Sequential Processes, or CSP.
 
 Channels are the pipes that connect concurrent goroutines. 
-You can send values into channels from one goroutine and receive those values into another goroutine.
+You can send values to channels from one goroutine and receive those values on another goroutine.
+
 Channels is about signaling!
 
-- unbuffered, blocks until consumer get the item
+- unbuffered, blocks until a consumer gets the item
 
     ch := make(chan string)
 
-- buffered, blocks after n items if no consumer gets the items out 
+- buffered, gives a buffer of n items and blocks until a consumer gets a item
 
     ch := make(chan string, 10)
 
@@ -52,19 +53,19 @@ Channels is about signaling!
 
 When using channels as arguments in function and methods we can specify if we:
 
-- receive data only
+- receive only
 
     func test(ch <-chan string)
 
-- send data only
+- send only
 
     func test(ch chan<- string)
 
-- both
+- both, receive and send
 
     func test(ch chan string)
 
-The code is checked compile time!
+The code is checked at compile time!!!
 
 * Chanel State (1/2)
 
