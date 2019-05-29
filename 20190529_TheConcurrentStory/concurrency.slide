@@ -1,0 +1,424 @@
+The Concurrency Story
+
+29 May 2019
+Tags: go, concurrency
+
+Sotirios Mantziaris
+Refreshment Engineer (καφετζής)
+
+smantziaris@gmail.com
+http://blog.mantziaris.eu
+https://github.com/mantzas
+https://gr.linkedin.com/in/mantzas
+@smantziaris
+
+* Prerequisites
+
+- go basics
+- [[https://golang.org/][go]] installation, v1.12+
+
+"Ζαρζαβατικά" like tomatoes, cabbage etc. are strictly prohibited!
+
+* How many of you believe that concurrency is difficult?
+
+* Concurrency is not parallelism
+
+Parallelism is about doing lots of things at once.
+Concurrency is about dealing with lots of things at once. 
+
+.iframe http://www.youtube.com/embed/cN_DpYBzKso 480 853
+
+* Channels, whats the fuzz about???
+
+* Channels (1/2)
+
+Inspired from Hoare's Communicating Sequential Processes, or CSP.
+
+Channels are the pipes that connect concurrent goroutines. 
+You can send values to channels from one goroutine and receive those values on another goroutine.
+
+Channels is about signaling!
+
+- unbuffered, blocks until a consumer gets the item
+
+    ch := make(chan string)
+
+- buffered, gives a buffer of n items and blocks until a consumer gets a item
+
+    ch := make(chan string, 10)
+
+: What is the blocking difference?
+
+* Channels (2/2)
+
+When using channels as arguments in function and methods we can specify if we:
+
+- receive only
+
+    func test(ch <-chan string)
+
+- send only
+
+    func test(ch chan<- string)
+
+- both, receive and send
+
+    func test(ch chan string)
+
+The code is checked at compile time!!!
+
+* Chanel State (1/2)
+
+- nil
+    
+    var ch chan string
+
+    or
+    
+    ch = nil
+
+- open
+
+    ch := make(chan string) 
+
+- close
+
+    close(ch)
+
+* State (2/2)
+
+.image img/state.png 500 900
+
+* Guarantee Of Delivery
+
+.image img/guarantee_of_delivery.png 500 900
+
+* Signaling With Data (1/2)
+
+.image img/signaling_with_data.png 500 900
+
+* Signaling With Data (2/2)
+
+- Guarantee
+
+    An unbuffered channel gives you a guarantee that a signal being sent has been received,
+    because the receive of the signal happens before the send of the signal completes.
+
+- No Guarantee
+
+    A buffered channel of size >1 gives you No guarantee that a signal being sent has been received,
+    because the send of the signal happens before the receive of the signal completes.
+
+- Delayed Guarantee
+
+    A buffered channel of size =1 gives you a delayed guarantee. 
+    It can guarantee that the previous signal that was sent has been received,
+    because the receive of the first signal, happens before the send of the second signal completes.    
+
+* Signaling Without Data
+
+.image img/signaling_without_data.png 500 900
+
+* Send
+
+- send with data
+
+    ch := make(chan string)
+    ch <- "test"
+
+- send without data
+    
+    ch := make(chan struct{})
+    ch <- struct{}{}
+
+    It is the zero-space, idiomatic way to indicate a channel used only for signalling
+
+* Receive (1/2) (channel1.go)
+
+.play src/channel1.go  /START OMIT/,/END OMIT/
+
+ok is false if the channel is closed and val's value is the default for the type!!!
+
+- for range loop
+
+    for val := range ch {
+        fmt.Print(val)
+    }
+
+for exits if the channel is closed
+
+* Receive (2/2)
+
+- select (multiple channels)
+
+    select {
+        case <-ctx.Done():
+        ...
+        case val, ok := <-ch:
+        ...
+    }
+
+ok is false if the channel is closed
+
+- deadlock (channel2.go)
+
+.play src/channel2.go  /START OMIT/,/END OMIT/
+
+* Examples
+
+* Send data to goroutine, wait for goroutine to complete (channel3.go)
+
+.play src/channel3.go  /START OMIT/,/END OMIT/
+
+* Loop and close (channel4.go)
+
+.play src/channel4.go  /START OMIT/,/END OMIT/
+
+: What would happen if the channel was unbuffered???
+
+* Context package (1/3)
+
+Package context defines the Context type, which carries deadlines, cancellation signals, 
+and other request-scoped values across API boundaries and between processes.
+
+Context can form a tree of contexts every time we use one of the next functions.
+
+* Context package (2/3)
+
+- WithCancel(parent Context) (ctx Context, cancel CancelFunc)
+
+    childCtx, cnl := context.WithCancel(ctx)
+
+    ...
+
+    cnl()
+
+- WithDeadline(parent Context, d time.Time) (Context, CancelFunc)
+
+    childCtx, cnl := context.WithDeadline(ctx, d)
+
+    ...
+
+    cnl() // or the deadline passed
+
+* Context package (3/3)
+
+- WithTimeout(parent Context, timeout time.Duration) 
+
+    childCtx, cnl := context.WithTimeout(ctx, 1 * time.Second)
+
+    ...
+
+    cnl() // or timeout passed
+
+Context can be used to propagate cross-functional stuff 
+
+The convention is that every function or method that need to use or propagate context has it as its first argument:
+
+    func test(ctx context.Context, name string)
+
+* Cancel a worker example (1/3)
+
+- Setup
+
+.code src/context1.go  /SETUP START OMIT/,/SETUP END OMIT/
+
+- Producer
+
+.code src/context1.go  /PRODUCER START OMIT/,/PRODUCER END OMIT/
+
+* Cancel a worker example (2/3)
+
+- Consumer
+
+.code src/context1.go  /CONSUMER START OMIT/,/CONSUMER END OMIT/
+
+* Cancel a worker example (3/3) (context1.go)
+
+- Sync
+
+.play src/context1.go  /CLOSING START OMIT/,/CLOSING END OMIT/
+
+* Sync package
+
+Package sync provides basic synchronization primitives such as mutual exclusion locks. 
+Other than the Once and WaitGroup types, most are intended for use by low-level library routines. 
+Higher-level synchronization is better done via channels and communication.
+
+: Ask audience who has worked with threads, mutexes, locks etc?
+
+* WaitGroup (sync1.go)
+
+A WaitGroup waits for a collection of goroutines to finish. 
+The main goroutine calls Add to set the number of goroutines to wait for. 
+Then each of the goroutines runs and calls Done when finished. 
+At the same time, Wait can be used to block until all goroutines have finished.
+
+.play src/sync1.go  /START OMIT/,/END OMIT/
+
+* Mutex (1/2)
+
+Mutual exclusion lock.
+Channels internally work with mutexes.
+
+.code src/sync2.go  /TYPE START OMIT/,/TYPE END OMIT/
+
+* Mutex (2/2) (sync2.go)
+
+.play src/sync2.go  /MAIN START OMIT/,/MAIN END OMIT/
+
+* RWMutex
+
+Same as Mutex. Readers don't block each other but one writer blocks all (readers and writers).
+
+* Semaphores (1/3)
+
+According to [[https://en.wikipedia.org/wiki/Semaphore_(programming)][Wikipedia]]
+
+    In computer science, a semaphore is a variable or abstract data type used to control access 
+    to a common resource by multiple processes in a concurrent system 
+    such as a multitasking operating system. 
+
+* Semaphores (2/3)
+
+Using channels:
+
+    var ioLimit = make(chan struct{}, 20)
+
+
+    ioLimit <- struct{}{} // wait
+
+    ...
+
+    <-ioLimit // signal
+
+
+* Semaphores (3/3)
+
+Using "golang.org/x/sync/semaphore"
+
+Next we need to instantiate the weighted semaphore in order to use it.
+
+    var sem = semaphore.NewWeighted(int64(10))
+
+Next we need to know how to increment/decrement the semaphore to actually control and limit our concurrency.
+
+    // Acquiring(blocking) is as easy as
+    sem.Acquire(ctx, 1) // equivalent to sem <- 1 (using channel approach)
+    // Try(non-blocking) to acquire the semaphore. Return true on success else false
+    acq := sem.TryAcquire(1)
+
+    // Releasing is as easy as
+    sem.Release(1) // equivalent to <- sem (using channel approach)
+
+
+* Error handling (1/2)
+
+- exit application
+
+    go func() {
+        ...
+        if err != nil {
+            log.Fatalf("error: %v",err)
+        }	
+    }()
+
+: poll: which of you believe this is a good option? Can we do better?
+
+- using error chanel
+
+    go func() {
+        ...
+        if err != nil {
+            chErr <- err
+        }	
+    }()
+
+* Error handling (2/2)
+
+- using result struct with error
+
+    type Result struct {
+        Err error
+        Amount float
+    }
+
+    go func() {
+        ...
+        if err != nil {
+            chRes <- Result{err:err}
+        }	
+    }()
+
+* Concurrency patterns
+
+* Pipeline (1/2)
+
+Setting up a 3 stage pipeline
+
+- generate numbers
+
+.code src/pattern1.go  /GEN START OMIT/,/GEN END OMIT/
+
+- square numbers
+
+.code src/pattern1.go  /SQUARE START OMIT/,/SQUARE END OMIT/
+
+* Pipeline (2/2)
+
+- print numbers (inside the main) (pattern1.go)
+
+.play src/pattern1.go  /MAIN START OMIT/,/MAIN END OMIT/
+
+: Observe that the results are sequential
+
+* Fan Out/In 
+
+.image img/fanoutin.png 400 900
+
+: sound familiar???
+
+* Work distributing (1/2)
+
+- Distribute work
+
+.code src/pattern2.go  /WORK START OMIT/,/WORK END OMIT/
+
+* Work distributing (2/2)
+
+- main (pattern2.go)
+
+.play src/pattern2.go  /MAIN START OMIT/,/MAIN END OMIT/
+
+* Work stealing (1/2)
+
+- spin up workers
+
+.code src/pattern3.go  /WORK START OMIT/,/WORK END OMIT/
+
+* Work stealing (2/2)
+
+- main (pattern3.go)
+
+.play src/pattern3.go  /MAIN START OMIT/,/MAIN END OMIT/
+
+: Is there any reason why the results are ordered?
+: Distribution vs Work Stealing
+
+* How many of you believe that concurrency is now a little or a lot more easier?
+
+* Q&A (if there is time...)
+
+: How difficult does concurrency in go sound to you now?
+: How many of you could write concurrent code now?
+
+* References
+
+[[https://www.ardanlabs.com/blog/2017/10/the-behavior-of-channels.html][The behavior of channels]]
+[[https://github.com/golang/go/wiki/LearnConcurrency][Learn Concurrency]]
+[[https://blog.golang.org/pipelines][Pipelines]]
+[[https://blog.golang.org/context][Context]]
+[[https://blog.golang.org/concurrency-is-not-parallelism][Concurrency is not parallelism]]
+[[https://blog.golang.org/go-concurrency-patterns-timing-out-and][Go Concurrency Patterns: Timing out, moving on]]
+[[https://blog.golang.org/share-memory-by-communicating][Share Memory By Communicating]]
+[[https://en.wikipedia.org/wiki/Semaphore_(programming)][Semaphore Wikipedia]]
